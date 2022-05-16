@@ -33,7 +33,7 @@
                     <!-- start page title -->
                     @include('backend.elements.breadcrumb')
                     <!-- end page title -->
-
+                    @include('message.messages')
                     <!-- Start Page Content here -->
                     @yield('content')
                     <!-- End Page content -->

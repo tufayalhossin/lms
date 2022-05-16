@@ -37,6 +37,23 @@
                         <!-- End Dashboard -->
 
                         <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#catelogManagment" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil uil-vertical-distribution-top"></i>
+                                <span> Catelog Management </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="catelogManagment">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{route('admin.category.list')}}">{{__("Category")}}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('admin.subcategory.list')}}">{{__("Sub Category")}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                                 <i class="uil-store"></i>
                                 <span> Ecommerce </span>
@@ -49,24 +66,6 @@
                                     </li>
                                     <li>
                                         <a href="apps-ecommerce-products-details.html">Products Details</a>
-                                    </li>
-                                    <li>
-                                        <a href="apps-ecommerce-orders.html">Orders</a>
-                                    </li>
-                                    <li>
-                                        <a href="apps-ecommerce-orders-details.html">Order Details</a>
-                                    </li>
-                                    <li>
-                                        <a href="apps-ecommerce-customers.html">Customers</a>
-                                    </li>
-                                    <li>
-                                        <a href="apps-ecommerce-shopping-cart.html">Shopping Cart</a>
-                                    </li>
-                                    <li>
-                                        <a href="apps-ecommerce-checkout.html">Checkout</a>
-                                    </li>
-                                    <li>
-                                        <a href="apps-ecommerce-sellers.html">Sellers</a>
                                     </li>
                                 </ul>
                             </div>

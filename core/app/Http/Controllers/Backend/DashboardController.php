@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
-        return view('backend.templates.dashboard.admin',['data'=>[1,2,3,4,5]]);
+        return view('backend.templates.dashboard.admin');
     }
 }
