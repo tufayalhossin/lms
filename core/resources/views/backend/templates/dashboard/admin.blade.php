@@ -1,4 +1,29 @@
 @extends('backend.layouts.app')
+<!-- 
+    - tools array 
+    - this array will create a dynamic page info and breadcrumb.
+
+ -->
+<?php
+$infoDonor = [
+    "meta" => [
+        "title" => "Dashboard",
+        "description" => "",
+        "tags" => "",
+    ],
+    "breadcrumb" => [
+        "title" => "Dashboard",
+        "menus" => [
+            [
+                'active' => true,
+                'label' => 'dashboard',
+                'action' => route('admin.dashboard'),
+            ],
+        ]
+    ]
+];
+?>
+
 @section('content')
 <div class="row">
     <div class="col-xl-5 col-lg-6">

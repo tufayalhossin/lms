@@ -194,4 +194,22 @@ return [
         // ...
     ])->toArray(),
 
+    'infoDonor' => [
+        "meta" => [
+            "pageTitle" => "Home",
+            "description" => "",
+            "tags" => "",
+        ],
+        "breadcrumb" => [
+            "title" => "Home",
+            "menus" => [
+                [
+                    'active' => true,
+                    'label' => 'home',
+                    'action' => asset('/'),
+                ],
+            ]
+        ]
+    ],
+
 ];

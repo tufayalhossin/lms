@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php  if(empty($infoDonor)) $infoDonor = config('app.infoDonor'); ?>
 
 <head>
     <meta charset="utf-8" />
-    <title>Dashboard </title>
+    <title>{{$infoDonor['meta']['title']}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
+    <meta content="{{$infoDonor['meta']['description']}}" name="description" />
+    <meta content="artyir" name="author" />
 
     @include('backend.elements.header')
 
@@ -70,7 +71,6 @@
     <!-- Footer -->
     @include('backend.elements.footer')
     <!-- End Footer -->
-
 </body>
 
 </html>
