@@ -2,7 +2,6 @@
 <!-- 
     - tools array 
     - this array will create a dynamic page info and breadcrumb.
-
  -->
 <?php
 $infoDonor = [

@@ -1,4 +1,5 @@
-   <!-- start page title -->
+   <!-- start breadcrumb -->
+   @if(!empty($infoDonor['breadcrumb']))
    <div class="row">
        <div class="col-12">
            <div class="page-title-box">
@@ -19,4 +20,7 @@
            </div>
        </div>
    </div>
-   <!-- end page title -->
+   @else
+    <br/>
+   @endif
+   <!-- end breadcrumb -->
