@@ -48,6 +48,7 @@ $infoDonor = [
                             <tr>
                                 <th width="50">SL</th>
                                 <th>Name</th>
+                                <th>Status</th>
                                 <th width="150">Action</th>
                             </tr>
                         </thead>
@@ -56,23 +57,16 @@ $infoDonor = [
                             <tr>
                                 <td>{{$key+1}}</td>
                                 <td>{{ucwords($value->name)}}</td>
-
-                                </td>
-
-
+                                <td>{{($value->status)?"Active":"Inactive"}}</td>
                                 <td class="text-right">
-
-                                    <a href="{{route('admin.category.edit',[$value->id])}}" class="btn text-info btn-sm mb-2"><i class="icon-pencil" style="color: blue;"></i> Edit</a>
-
-
-                                    <a class="dropdown-item notify-item" href="{{route('admin.category.delete',[$value->id])}}" onclick=" confirm('Are you sure you want to delete this item?');
-                                                     document.getElementById('delete-form').submit(); false"> <i class="fa fa-lock"></i>
-                                        <i class="mdi mdi-logout me-1"></i> <span>{{ __('Logout') }}</span>
-                                    </a>
-                                    <form id="delete-form" action="{{route('admin.category.delete',[$value->id])}}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                    <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{route('admin.category.delete',[$value->id])}}" class="btn text-danger btn-sm  mb-2"><i class="icon-cross3" style="color: red;"></i> Delete</a>
+                                    <div class="dropdown">
+                                        <i class="uil uil-ellipsis-v btn dropdown-toggle artyir-dropdown-toggle btn-light" id="dropdownMenuLink" data-bs-toggle="dropdown" ></i>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a href="{{route('admin.category.edit',[$value->id])}}" class="dropdown-item"> Edit</a>
+                                            <li><a onclick="return confirm('Are you sure you want to delete this item?');" href="{{route('admin.category.delete',[$value->id])}}" class="dropdown-item text-danger"><i class="icon-cross3" style="color: red;"></i> Delete</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                             @empty
