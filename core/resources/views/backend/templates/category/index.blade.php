@@ -3,6 +3,10 @@
 @section('discipline',"show")
 @section('disciplineparent',"active")
 
+@section('style')
+<!-- Datatables css -->
+@include('backend.elements.datatable-style')
+@endsection
 <!-- 
     - tools array 
     - this array will create a dynamic page info and breadcrumb.
@@ -43,24 +47,37 @@ $infoDonor = [
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table  dt-responsive  table-sm artyirdatatable display nowrap" id="branddata">
+                    <table class="table table-striped table-sm" id="basic-datatable">
                         <thead class="thead-light">
                             <tr>
-                                <th width="50">SL</th>
+                                <th width="100">Thumbnail</th>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th width="150">Action</th>
+                                <th width="50">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($categorylist as $key => $value)
                             <tr>
-                                <td>{{$key+1}}</td>
+                                <td>
+                                    <?php 
+                                        if(!empty($value->name)&& file_exists(asset($value->photo))){
+                                    ?> 
+                                    <img class=" rounded avatar-thumb-img-40" src="{{asset($value->photo)}}" alt="{{$value->name}}">   
+                                    <?php }else{?>
+                                        <img class="rounded avatar-thumb-img-40" src="{{asset('storage/category/html.png')}}" alt="{{$value->name}}">   
+
+                                        <!-- <div class="avatar-container s40 shadow-sm border border-primary">
+                                            {{substr($value->name, 0, 1)}}
+                                        </div> -->
+                                    <?php }?>
+
+                                </td>
                                 <td>{{ucwords($value->name)}}</td>
                                 <td>{{($value->status)?"Active":"Inactive"}}</td>
                                 <td class="text-right">
                                     <div class="dropdown">
-                                        <i class="uil uil-ellipsis-v btn dropdown-toggle artyir-dropdown-toggle btn-light" id="dropdownMenuLink" data-bs-toggle="dropdown" ></i>
+                                        <i class="uil uil-ellipsis-v dropdown-toggle artyir-dropdown-toggle btn btn-primary btn-sm" id="dropdownMenuLink" data-bs-toggle="dropdown" ></i>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <a href="{{route('admin.category.edit',[$value->id])}}" class="dropdown-item"> Edit</a>
                                             <li><a onclick="return confirm('Are you sure you want to delete this item?');" href="{{route('admin.category.delete',[$value->id])}}" class="dropdown-item text-danger"><i class="icon-cross3" style="color: red;"></i> Delete</a>
@@ -79,4 +96,8 @@ $infoDonor = [
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+@include('backend.elements.datatable-script')
 @endsection
