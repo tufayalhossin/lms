@@ -35,19 +35,19 @@
                             </a>
                         </li>
                         <!-- End Dashboard -->
-
-                        <li class="side-nav-item">
+                        
+                        <li class="side-nav-item @yield('categoryparent')">
                             <a data-bs-toggle="collapse" href="#catelogManagment" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                             <i class="uil uil-vertical-distribution-top"></i>
-                                <span> Catelog Management </span>
+                                <span> Catelog Management  </span>
                                 <span class="menu-arrow"></span>
                             </a>
-                            <div class="collapse" id="catelogManagment">
+                            <div class="collapse @yield('categoryparent')" id="catelogManagment">
                                 <ul class="side-nav-second-level">
-                                    <li>
+                                    <li class="@yield('category-active')">
                                         <a href="{{route('admin.category.list')}}">{{__("Category")}}</a>
                                     </li>
-                                    <li>
+                                    <li class="@yield('subcategory-active')">
                                         <a href="{{route('admin.subcategory.list')}}">{{__("Sub Category")}}</a>
                                     </li>
                                 </ul>

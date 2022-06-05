@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
-@section('page-title',"Category List")
+@section('page-title',"Subcategory List")
 @section('categoryparent',"show menuitem-active")
-@section('category-active',"menuitem-active")
+@section('subcategory-active',"menuitem-active")
 
 @section('style')
 <!-- Datatables css -->
@@ -14,17 +14,17 @@
 <?php
 $infoDonor = [
     "meta" => [
-        "title" => "Category",
+        "title" => "Subcategory",
         "description" => "",
         "tags" => "",
     ],
     "breadcrumb" => [
-        "title" => "Category",
+        "title" => "Subcategory",
         "menus" => [
             [
                 'active' => false,
-                'label' => 'category',
-                'action' => route('admin.category.list'),
+                'label' => 'subcategory',
+                'action' => route('admin.subcategory.list'),
             ],
             [
                 'active' => true,
@@ -41,8 +41,8 @@ $infoDonor = [
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h5 class="m-0 text-dark card-title">{{__("All")}} {{__("Categories")}}</h5>
-                <a class="m-0 btn-primary btn btn-sm float-right" href="{{route('admin.category.create')}}">{{ __("Add New") }}</a>
+                <h5 class="m-0 text-dark card-title">{{__("All")}} {{__("Subcategories")}}</h5>
+                <a class="m-0 btn-primary btn btn-sm float-right" href="{{route('admin.subcategory.create')}}">{{ __("Add New") }}</a>
             </div>
 
             <div class="card-body">
@@ -52,12 +52,13 @@ $infoDonor = [
                             <tr>
                                 <th width="100">{{__("Thumbnail")}}</th>
                                 <th>{{__("Name")}}</th>
+                                <th>{{__("Category")}}</th>
                                 <th>{{__("Status")}}</th>
                                 <th width="50">{{__("Action")}}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($categorylist as $key => $value)
+                            @forelse($subcategorylist as $key => $value)
                             <tr>
                                 <td>
                                     <?php 
@@ -72,6 +73,7 @@ $infoDonor = [
 
                                 </td>
                                 <td>{{ucwords($value->name)}}</td>
+                                <td>{{ucwords($value->category->name)}}</td>
                                 <td><?php if($value->status){ ?>
                                     <span class="badge badge-outline-success rounded-pill">Active</span>
                                     <?php }else{ ?>
@@ -81,9 +83,9 @@ $infoDonor = [
                                     <div class="dropdown">
                                         <i class="uil uil-ellipsis-v dropdown-toggle artyir-dropdown-toggle btn btn-light btn-sm" id="dropdownMenuLink" data-bs-toggle="dropdown" ></i>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <li><a href="{{route('admin.category.view',[$value->id])}}" class="dropdown-item  text-info"><i class="dripicons-information me-2"></i> View</a></li>
-                                        <li><a href="{{route('admin.category.edit',[$value->id])}}" class="dropdown-item text-warning"><i class="dripicons-document-edit me-2"></i> Edit</a></li>
-                                            <li><a onclick="return confirm('Are you sure you want to delete this item?');" href="{{route('admin.category.delete',[$value->id])}}" class="dropdown-item text-danger"><i class="dripicons-trash me-2 "></i> Delete</a>
+                                        <li><a href="{{route('admin.subcategory.view',[$value->id])}}" class="dropdown-item  text-info"><i class="dripicons-information me-2"></i> View</a></li>
+                                        <li><a href="{{route('admin.subcategory.edit',[$value->id])}}" class="dropdown-item text-warning"><i class="dripicons-document-edit me-2"></i> Edit</a></li>
+                                            <li><a onclick="return confirm('Are you sure you want to delete this item?');" href="{{route('admin.subcategory.delete',[$value->id])}}" class="dropdown-item text-danger"><i class="dripicons-trash me-2 "></i> Delete</a>
                                             </li>
                                         </ul>
                                     </div>

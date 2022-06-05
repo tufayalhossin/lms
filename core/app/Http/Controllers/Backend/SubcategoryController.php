@@ -5,31 +5,34 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
-class CategoryController extends Controller
+class SubcategoryController extends Controller
 {
     public function index()
     {
-        return view('backend.templates.category.index', ['categorylist' => Category::orderBy('id', 'desc')->get()]);
+        return view('backend.templates.subcategory.index', ['subcategorylist' => Subcategory::orderBy('id', 'desc')->get()]);
     }
 
     public function create()
     {
-        return view('backend.templates.category.add');
+        return view('backend.templates.subcategory.add',['categorylist' => Category::where(['status'=>1])->orderBy('id', 'desc')->get()]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:categories|max:20',
+            'name' => 'required|unique:subcategories|max:20',
+            'category_id' => 'required',
             'photo' => 'mimes:jpg,jpeg,png,gif|required|max:500',
         ]);
         
-        Category::create([
+        Subcategory::create([
             'name'          => $request->name,
             'description'   => $request->description,
+            'category_id'   => $request->category_id,
             'slug'          => Str::slug($request->name),
             'status'        => (array_key_exists('status',$request->all()))? 1:0,
             'photo'         => move_file($request->file('photo'),'back/category',Str::slug($request->name))
@@ -41,9 +44,10 @@ class CategoryController extends Controller
     public function edit($id)
     {
         return view(
-            'backend.templates.category.edit',
+            'backend.templates.subcategory.edit',
             [
-                'category' => Category::where("id", $id)->get()
+                'subcategory' => Subcategory::where("id", $id)->first(),
+                'categorylist' => Category::where("status", 1)->get()
             ]
         );
     }
@@ -51,9 +55,9 @@ class CategoryController extends Controller
     public function view($id)
     {
         return view(
-            'backend.templates.category.view',
+            'backend.templates.subcategory.view',
             [
-                'category' => Category::where("id", $id)->first()
+                'subcategory' => Subcategory::where("id", $id)->first()
             ]
         );
     }
@@ -61,11 +65,13 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|unique:categories,name,' . $id
+            'name' => 'required|unique:categories,name,' . $id,
+            'category_id' => 'required'
         ]);
         $data = [
             'name'          => $request->name,
             'description'   => $request->description,
+            'category_id'   => $request->category_id,
             'status'        => (array_key_exists('status',$request->all()))? 1:0,
         ];
         // file upload with checking existence
@@ -73,22 +79,22 @@ class CategoryController extends Controller
             $request->validate([
                 'photo' => 'mimes:jpg,jpeg,png,gif|required|max:500',
             ]);
-            $category = Category::where("id", $id)->first();
+            $category = Subcategory::where("id", $id)->first();
            $data['photo'] = move_file($request->file('photo'),'back/category',Str::slug($request->name),$category->photo);
         }
         // update data by id
-        Category::where("id", $id)->update($data);
+        Subcategory::where("id", $id)->update($data);
         Session::flash('success', 'Update Successfully.');
-        return redirect()->route("admin.category.list");
+        return redirect()->route("admin.subcategory.list");
     }
 
     public function destroy($id)
     {
         try {
-            Category::where("id", $id)->delete();
+            Subcategory::where("id", $id)->delete();
             Session::flash('success', 'Delete Successfully.');
         } catch (\Throwable $th) {
-            Session::flash('warning', 'You can\'t delete this one, Sub-Category are added by this category!!');
+            Session::flash('warning', 'You can\'t delete this one, item are added by this category!!');
         }
         return redirect()->back();
     }

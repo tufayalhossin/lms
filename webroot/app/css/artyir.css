@@ -22,3 +22,15 @@
     border: 1px solid #b8bdf8;
     padding: 3px;
 }
+.w-100px{
+    width: 100px;
+    height: auto;
+}
+.h-100px{
+    width: auto;
+    height: 100px;
+}
+.wh-100px{
+    width: 100px;
+    height: 100px;
+}

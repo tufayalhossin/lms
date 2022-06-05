@@ -1,39 +1,30 @@
-   
+   @if(Session::has('warning'))
+   <div class="alert alert-warning alert-dismissible text-warning border-0 fade show" role="alert">
+       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+       <i class="dripicons-warning me-2"></i> {!! Session::get('warning') !!}
+   </div>
+   @endif
+   @if(Session::has('success'))
+   <div class="alert alert-success alert-dismissible text-success border-0 fade show" role="alert">
+       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+       <i class="dripicons-checkmark me-2"></i> {!! Session::get('success') !!}
+   </div>
+   @endif
+   @if(Session::has('info'))
+   <div class="alert alert-info alert-dismissible text-info border-0 fade show" role="alert">
+       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+       <i class="dripicons-information me-2"></i> {!! Session::get('info') !!}
+   </div>
+   @endif
+   @if($errors->any())
+   <div class="alert alert-danger alert-dismissible text-danger border-0 fade show" role="alert">
+   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+       <i class="dripicons-wrong me-2"></i> Warning!
+       <ul>
+           @foreach ($errors->all() as $error)
+           <li>{{ $error }}</li>
+           @endforeach
+       </ul>
+   </div>
 
-    @if(Session::has('warning'))
-        <div class="col-sm-12 mb-3" id="flashmessage" style="padding: 0 15px;">
-        <div  style="width: 100%; margin:0 auto" class="alert alert-danger alert-styled-left alert-arrow-left alert-bordered" role="alert">
-            <button class="close" type="button" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-            {!! Session::get('warning') !!}&nbsp;&nbsp;&nbsp;
-        </div>
-        </div>
-    @endif
-    @if(Session::has('success'))
-        <div class="col-sm-12 mb-3" id="flashmessage" style="padding: 0 15px;">
-        <div  style="width: 100%; margin:0 auto" class="alert alert-success alert-styled-left alert-arrow-left alert-bordered" role="alert">
-            <button class="close" type="button" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-            {!! Session::get('success') !!}&nbsp;&nbsp;&nbsp;
-        </div>
-        </div>
-    @endif
-    @if(Session::has('info'))
-        <div class="col-sm-12 mb-3" id="flashmessage" style="padding: 0 15px;">
-        <div  style="width: 100%; margin:0 auto" class="alert alert-info alert-styled-left alert-arrow-left alert-bordered" role="alert">
-            <button class="close" type="button" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-            {!! Session::get('info') !!}&nbsp;&nbsp;&nbsp;
-        </div>
-        </div>
-    @endif
-    @if($errors->any())
-        <div class="col-sm-12 mb-3" id="flashmessage" style="padding: 0 15px;">
-            <div  style="width: 100%; margin:0 auto" class="alert alert-danger alert-styled-left alert-arrow-left alert-bordered" role="alert">
-                <button class="close" type="button" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-                <span class="text-semibold">Warning!</span> 
-                @foreach ($errors->all() as $error)
-                {{ $error }}
-                @endforeach&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;
-            </div>
-        </div>
-    @endif
-
+   @endif

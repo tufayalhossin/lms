@@ -23,6 +23,7 @@ return new class extends Migration
             $table->tinyInteger("status")->default('1');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

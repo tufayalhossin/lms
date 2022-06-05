@@ -21,7 +21,15 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
+        $data = array(
+            "name" => "Tufayal Hossin Emon",
+            "email" => "admin@demo.com",
+            "email_verified_at" => date('Y-m-d H:i:s'),
+            "role" => "1",
+            "password" => bcrypt("12345678"),
+        );
     }
 
     /**
