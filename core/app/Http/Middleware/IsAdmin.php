@@ -17,7 +17,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->isAdmin == 0) {
+        if (auth()->user()->isAdmin != 1) {
             Auth::guard('web')->logout();
             return redirect('/login');
         }

@@ -63,7 +63,7 @@ $infoDonor = [
                                     <?php 
                                         if(haveFile($value->photo)){
                                     ?> 
-                                    <img class=" rounded avatar-thumb-img-40" src="{{asset($value->photo)}}" alt="{{$value->name}}">   
+                                    <img class=" rounded avatar-thumb-img-40" src="{{url($value->photo)}}" alt="{{$value->name}}">   
                                     <?php }else{?>
                                         <div class="avatar-container s40 shadow-sm border border-primary">
                                             {{substr($value->name, 0, 1)}}

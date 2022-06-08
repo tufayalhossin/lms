@@ -12,6 +12,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
+        url('');
         return view('backend.templates.category.index', ['categorylist' => Category::orderBy('id', 'desc')->get()]);
     }
 
@@ -26,13 +27,14 @@ class CategoryController extends Controller
             'name' => 'required|unique:categories|max:20',
             'photo' => 'mimes:jpg,jpeg,png,gif|required|max:500',
         ]);
-        
+// dd($request->file('photo'));
         Category::create([
             'name'          => $request->name,
             'description'   => $request->description,
             'slug'          => Str::slug($request->name),
             'status'        => (array_key_exists('status',$request->all()))? 1:0,
-            'photo'         => move_file($request->file('photo'),'back/category',Str::slug($request->name))
+            'photo'         => move_file($request->file('photo'),'back/category',Str::slug($request->name)),
+            'file_name'     => $request->file('photo')?$request->file('photo')->GetClientOriginalName():null
         ]);
         Session::flash('success', 'Added Successfull.');
         return redirect()->back();
@@ -75,6 +77,8 @@ class CategoryController extends Controller
             ]);
             $category = Category::where("id", $id)->first();
            $data['photo'] = move_file($request->file('photo'),'back/category',Str::slug($request->name),$category->photo);
+           $data['file_name'] = $request->file('photo')?$request->file('photo')->GetClientOriginalName():null;
+
         }
         // update data by id
         Category::where("id", $id)->update($data);
@@ -92,5 +96,5 @@ class CategoryController extends Controller
         }
         return redirect()->back();
     }
- 
+
 }

@@ -13,10 +13,12 @@ class Subcategory extends Model
         'name',
         'slug',
         'photo',
+        'file_name',
         'category_id',
         'status',
         'created_at',
         'updated_at',
+        'description',
         'deleted_at'
     ];
     public $timestamps = true;

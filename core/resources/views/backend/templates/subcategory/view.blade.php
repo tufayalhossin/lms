@@ -64,7 +64,7 @@ $infoDonor = [
                         </div> <!-- end col -->
                         <div class="col-md-4">
                         <?php if (haveFile($subcategory->photo)) { ?>
-                                <img class="rounded shadow w-100px img-thumbnail" src="{{asset($subcategory->photo)}}" alt="{{$subcategory->name}}">
+                                <img class="rounded shadow w-100px img-thumbnail" src="{{url($subcategory->photo)}}" alt="{{$subcategory->name}}">
                             <?php } ?>
                         </div> <!-- end col -->
                     </div> <!-- end row-->

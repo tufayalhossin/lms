@@ -13,6 +13,8 @@ class Category extends Model
         'name',
         'slug',
         'photo',
+        'file_name',
+        'description',
         'status',
         'created_at',
         'updated_at'

@@ -47,7 +47,7 @@ $infoDonor = [
                         <label for="inputEmail3" class="col-sm-2 col-form-label text-right">{{__('Current Photo')}}</label>
                         <div class="col-sm-8">
                             <?php if (haveFile($category->photo)) { ?>
-                                <img class="rounded shadow w-100px img-thumbnail" src="{{asset($category->photo)}}" alt="{{$category->name}}">
+                                <img class="rounded shadow w-100px img-thumbnail" src="{{url($category->photo)}}" alt="{{$category->name}}">
                             <?php } ?>
                         </div>
                     </div>

@@ -35,7 +35,8 @@ class SubcategoryController extends Controller
             'category_id'   => $request->category_id,
             'slug'          => Str::slug($request->name),
             'status'        => (array_key_exists('status',$request->all()))? 1:0,
-            'photo'         => move_file($request->file('photo'),'back/category',Str::slug($request->name))
+            'photo'         => move_file($request->file('photo'),'back/category',Str::slug($request->name)),
+            'file_name'     => $request->file('photo')?$request->file('photo')->GetClientOriginalName():null
         ]);
         Session::flash('success', 'Added Successfull.');
         return redirect()->back();
@@ -81,6 +82,7 @@ class SubcategoryController extends Controller
             ]);
             $category = Subcategory::where("id", $id)->first();
            $data['photo'] = move_file($request->file('photo'),'back/category',Str::slug($request->name),$category->photo);
+           $data['file_name'] = $request->file('photo')?$request->file('photo')->GetClientOriginalName():null;
         }
         // update data by id
         Subcategory::where("id", $id)->update($data);
