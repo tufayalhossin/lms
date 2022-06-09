@@ -62,7 +62,7 @@ $infoDonor = [
                             <tr>
                                 <td>
                                     <?php 
-                                        if(haveFile($value->photo)){
+                                        if(hasFile($value->photo)){
                                     ?> 
                                     <img class=" rounded avatar-thumb-img-40" src="{{url($value->photo)}}" alt="{{$value->name}}">   
                                     <?php }else{?>

@@ -63,7 +63,7 @@ $infoDonor = [
                             </div> <!-- end card-body -->
                         </div> <!-- end col -->
                         <div class="col-md-4">
-                        <?php if (haveFile($category->photo)) { ?>
+                        <?php if (hasFile($category->photo)) { ?>
                                 <img class="rounded shadow w-100px img-thumbnail" src="{{url($category->photo)}}" alt="{{$category->name}}">
                             <?php } ?>
                         </div> <!-- end col -->
