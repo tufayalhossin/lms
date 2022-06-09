@@ -57,40 +57,7 @@ $infoDonor = [
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($categorylist as $key => $value)
-                            <tr>
-                                <td>
-                                    <?php 
-                                        if(haveFile($value->photo)){
-                                    ?> 
-                                    <img class=" rounded avatar-thumb-img-40" src="{{url($value->photo)}}" alt="{{$value->name}}">   
-                                    <?php }else{?>
-                                        <div class="avatar-container s40 shadow-sm border border-primary">
-                                            {{substr($value->name, 0, 1)}}
-                                        </div>
-                                    <?php }?>
-
-                                </td>
-                                <td>{{ucwords($value->name)}}</td>
-                                <td><?php if($value->status){ ?>
-                                    <span class="badge badge-outline-success rounded-pill">Active</span>
-                                    <?php }else{ ?>
-                                        <span class="badge badge-outline-danger rounded-pill">Inactive</span>
-                                    <?php }?></td>
-                                <td class="text-right">
-                                    <div class="dropdown">
-                                        <i class="uil uil-ellipsis-v dropdown-toggle artyir-dropdown-toggle btn btn-light btn-sm" id="dropdownMenuLink" data-bs-toggle="dropdown" ></i>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <li><a href="{{route('admin.category.view',[$value->id])}}" class="dropdown-item  text-info"><i class="dripicons-information me-2"></i> View</a></li>
-                                        <li><a href="{{route('admin.category.edit',[$value->id])}}" class="dropdown-item text-warning"><i class="dripicons-document-edit me-2"></i> Edit</a></li>
-                                            <li><a onclick="return confirm('Are you sure you want to delete this item?');" href="{{route('admin.category.delete',[$value->id])}}" class="dropdown-item text-danger"><i class="dripicons-trash me-2 "></i> Delete</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            @empty
-                            @endforelse
+                         
                         </tbody>
                     </table>
                 </div>
