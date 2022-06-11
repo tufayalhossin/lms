@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('course_sections', function (Blueprint $table) {
+        Schema::create('course_quizs', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->integer("sortindex")->detault(0)->unsigned();
-            $table->unsignedBigInteger('course_id');
-            $table->foreign('course_id')->references('id')->on('courses');
+            $table->string("image")->nullable();
+            $table->string("description")->nullable();
+            $table->unsignedBigInteger('section_id');
+            $table->foreign('section_id')->references('id')->on('course_sections');
             $table->tinyInteger("status")->detault(1);
-            $table->tinyInteger("quiz_required")->detault(1);
             $table->bigInteger('created_by')->unsigned();
             $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_sections');
+        Schema::dropIfExists('course_quizs');
     }
 };

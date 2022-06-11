@@ -27,7 +27,9 @@ return new class extends Migration
             $table->dateTime("end_date")->nullable();
             $table->float("discount_value")->default(0);
             $table->enum("discount_type",['percentage','flat'])->default('flat');
-            $table->status("status")->default('1');
+            $table->tinyInteger("status")->default(1);
+            $table->bigInteger('created_by')->unsigned();
+            $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
             $table->softDeletes();
         });

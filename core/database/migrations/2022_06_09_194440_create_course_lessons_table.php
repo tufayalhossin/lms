@@ -15,8 +15,17 @@ return new class extends Migration
     {
         Schema::create('course_lessons', function (Blueprint $table) {
             $table->id();
+            $table->string("title")->nullable();
             $table->unsignedBigInteger('section_id');
-            $table->foreign('section_id')->references('id')->on('courses');
+            $table->integer("sortindex")->detault(0)->unsigned();
+            $table->foreign('section_id')->references('id')->on('course_sections');
+            $table->integer("media_overview_id")->nullable();
+            $table->string("resourse")->nullable();
+            $table->string("extra_resourse")->nullable();
+            $table->mediumText("lecture_description")->nullable();
+            $table->tinyInteger("status")->detault(1);
+            $table->bigInteger('created_by')->unsigned();
+            $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
         });
     }

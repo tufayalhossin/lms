@@ -20,10 +20,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('isAdmin')->default(0)->unsigned();
+            $table->tinyInteger('isAdmin')->default(0)->unsigned();
+            $table->tinyInteger('isStudent')->default(1)->unsigned();
+            $table->tinyInteger('isInstructor')->default(0)->unsigned();
             $table->rememberToken();
             $table->string('cid')->nullable();
-            $table->timestamps();
+            $table->timestamps();            
+            $table->string('status')->default('Active');
             $table->softDeletes();
         });
         $data = array(

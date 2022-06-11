@@ -12,7 +12,6 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        url('');
         return view('backend.templates.category.index', ['categorylist' => Category::orderBy('id', 'desc')->get()]);
     }
 

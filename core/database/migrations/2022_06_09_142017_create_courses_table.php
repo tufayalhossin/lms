@@ -22,11 +22,11 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('categories_id');
             $table->unsignedBigInteger('subcategories_id');
-            $table->unsignedBigInteger('pricetiers_id')->nullable()->change();
+            $table->unsignedBigInteger('pricetiers_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('categories_id')->references('id')->on('categories');
             $table->foreign('subcategories_id')->references('id')->on('subcategories');
-            $table->foreign('pricetiers_id')->references('id')->on('pricetiers');
+            $table->foreign('pricetiers_id')->references('id')->on('course_pricetiers');
             $table->text('students_learn')->nullable();
             $table->text('requirements')->nullable();
             $table->text('intended_learners')->nullable();
@@ -42,6 +42,9 @@ return new class extends Migration
             $table->float('completion_certificate_price')->default(0)->unsigned();
             $table->dateTime('publish_schedule')->nullable();
             $table->string('status')->default('draft');
+            $table->text('message_for_approver')->nullable();
+            $table->bigInteger('created_by')->unsigned();
+            $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
             $table->softDeletes();
         });
