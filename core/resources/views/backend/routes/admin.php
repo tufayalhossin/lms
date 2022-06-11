@@ -48,6 +48,7 @@ Route::middleware(['auth','IsAdmin'])->prefix('app')->name('admin.')->group(func
    */
     //students
     Route::prefix('students')->name('students.')->group(function () {
+        Route::get('get-students/{status?}', [UsersController::class, 'studentAjax'])->name('ajax.index');
         Route::get('/{status?}',[ UsersController::class, 'students'])->name('list');
     });
 });
