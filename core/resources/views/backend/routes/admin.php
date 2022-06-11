@@ -4,6 +4,7 @@ namespace App\resources\view\routes;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\CategoryController as Category;
 use App\Http\Controllers\Backend\SubcategoryController as Subcategory;
+use App\Http\Controllers\Backend\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,5 +41,13 @@ Route::middleware(['auth','IsAdmin'])->prefix('app')->name('admin.')->group(func
         Route::get('/edit/{id}',[ Subcategory::class, 'edit'])->name('edit');
         Route::post('/update/{id}',[ Subcategory::class, 'update'])->name('update');
         Route::get('/delete/{id}',[ Subcategory::class, 'destroy'])->name('delete');
+    });
+
+    /*
+    -- user routes
+   */
+    //students
+    Route::prefix('students')->name('students.')->group(function () {
+        Route::get('/{status?}',[ UsersController::class, 'students'])->name('list');
     });
 });

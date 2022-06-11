@@ -15,14 +15,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->id()->from(6092022);
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('isAdmin')->default(0)->unsigned();
+            $table->tinyInteger('isAdmin')->default(0)->unsigned();
+            $table->tinyInteger('isStudent')->default(1)->unsigned();
+            $table->tinyInteger('isInstructor')->default(0)->unsigned();
             $table->rememberToken();
-            $table->timestamps();
+            $table->string('cid')->nullable();
+            $table->timestamps();            
+            $table->string('status')->default('Active');
             $table->softDeletes();
         });
         $data = array(
@@ -30,6 +34,7 @@ return new class extends Migration
             "email" => "admin@artyir.com",
             "email_verified_at" => date('Y-m-d H:i:s'),
             "isAdmin" => 1,
+            "cid" => alphaNumeric(20,'upper'),
             "password" => bcrypt("12345678"),
         );
         User::create($data);

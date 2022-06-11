@@ -39,7 +39,7 @@
                         <li class="side-nav-item @yield('categoryparent')">
                             <a data-bs-toggle="collapse" href="#catelogManagment" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                             <i class="uil uil-vertical-distribution-top"></i>
-                                <span> Catelog Management  </span>
+                                <span> Manage Catelog  </span>
                                 <span class="menu-arrow"></span>
                             </a>
                             <div class="collapse @yield('categoryparent')" id="catelogManagment">
@@ -49,6 +49,23 @@
                                     </li>
                                     <li class="@yield('subcategory-active')">
                                         <a href="{{route('admin.subcategory.list')}}">{{__("Sub Category")}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="side-nav-item @yield('studentparent')">
+                            <a data-bs-toggle="collapse" href="#studentManagment" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil uil-vertical-distribution-top"></i>
+                                <span> Manage students  </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse @yield('studentparent')" id="studentManagment">
+                                <ul class="side-nav-second-level">
+                                    <li class="@yield('student-active')">
+                                        <a href="{{route('admin.students.list',['Active'])}}">{{__("Active Students")}}</a>
+                                    </li>
+                                    <li class="@yield('student-blocked')">
+                                        <a href="{{route('admin.students.list',['Blocked'])}}">{{__("Blocked Students")}}</a>
                                     </li>
                                 </ul>
                             </div>

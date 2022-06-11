@@ -13,16 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('course_pricetiers', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("slug")->nullable();
-            $table->string("file_name")->nullable();
-            $table->string("photo")->nullable();
-            $table->longText("description")->nullable();
-            $table->tinyInteger("status")->default('1');
+            $table->integer('country_id');
+            $table->integer('matrix_amount')->unsigned();
+            $table->integer('point_amount')->unsigned();
+            $table->double('tier_amount')->unsigned();
+            $table->bigInteger('created_by')->unsigned();
+            $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('course_pricetiers');
     }
 };
