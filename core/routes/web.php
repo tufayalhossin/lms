@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
    return view('welcome');
 });
-Route::get('/login-as',[ Category::class, 'index'])->name('list');
+// Route::get('/login-as',[ Category::class, 'index'])->name('login-as');
 Route::get('/login-as', function () {
-   return view('welcome');
-});
+   return view('auth.loginas');
+})->name('login-as');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

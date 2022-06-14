@@ -9,40 +9,49 @@
     <meta content="{{$infoDonor['meta']['description']}}" name="description" />
     <meta content="artyir" name="author" />
 
-    @include('backend.elements.header')
+    @include('instructor.elements.header')
 
 </head>
 
-<body class="loading" data-layout-color="light" data-leftbar-theme="light" data-layout-mode="fluid" data-rightbar-onstart="true">
+<body >
     <!-- Begin page -->
-    <div class="wrapper">
-        <!-- Right Sidebar -->
-        @include('backend.elements.left-sidebar')
-        <!-- End Right Sidebar -->
+    <div id="app">
+        <!-- left Sidebar -->
+        @include('instructor.elements.left-sidebar')
+        <!-- End left Sidebar -->
 
 
-        <div class="content-page">
-            <div class="content">
-
+        <div id="main">
+            
                 <!-- Top navbar -->
-                @include('backend.elements.top-navbar')
+                @include('instructor.elements.top-navbar')
                 <!-- End Top navbar -->
 
-                <!-- Start Content-->
-                <div class="container-fluid">
-
                     <!-- start page title -->
-                    @include('backend.elements.breadcrumb')
-                    <!-- end page title -->
-                    @include('message.messages')
+                    @include('instructor.elements.breadcrumb')
+                    <!-- content -->
+            <div class="page-content">
+                <section class="row">
+                      <!-- end page title -->
+                      @include('message.messages')
                     <!-- Start Page Content here -->
                     @yield('content')
                     <!-- End Page content -->
-                </div>
-                <!-- container -->
-
+                </section>
             </div>
-            <!-- content -->
+
+            <!-- /content -->
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>{{date("Y")}} © Artyir</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                                href="#">Artyir</a></p>
+                    </div>
+                </div>
+            </footer>
 
             <!-- Footer Start -->
             <footer class="footer">
@@ -64,12 +73,12 @@
     <!-- END wrapper -->
 
     <!-- Right Sidebar -->
-    @include('backend.elements.right-sidebar')
+    @include('instructor.elements.right-sidebar')
     <!-- End Right Sidebar -->
 
 
     <!-- Footer -->
-    @include('backend.elements.footer')
+    @include('instructor.elements.footer')
     <!-- End Footer -->
 </body>
 
