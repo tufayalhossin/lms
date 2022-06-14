@@ -13,8 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('users', [UsersController::class, 'studentAjax'])->name('users.index');
+
 Route::get('/', function () {
+   return view('welcome');
+});
+Route::get('/login-as',[ Category::class, 'index'])->name('list');
+Route::get('/login-as', function () {
    return view('welcome');
 });
 

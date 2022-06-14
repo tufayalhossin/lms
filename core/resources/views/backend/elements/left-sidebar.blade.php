@@ -38,7 +38,7 @@
                         
                         <li class="side-nav-item @yield('categoryparent')">
                             <a data-bs-toggle="collapse" href="#catelogManagment" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil uil-vertical-distribution-top"></i>
+                            <i class="uil uil-server"></i>
                                 <span> Manage Catelog  </span>
                                 <span class="menu-arrow"></span>
                             </a>
@@ -55,7 +55,7 @@
                         </li>
                         <li class="side-nav-item @yield('studentparent')">
                             <a data-bs-toggle="collapse" href="#studentManagment" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
-                            <i class="uil uil-vertical-distribution-top"></i>
+                            <i class="uil  uil-users-alt"></i>
                                 <span> Manage students  </span>
                                 <span class="menu-arrow"></span>
                             </a>
@@ -66,6 +66,24 @@
                                     </li>
                                     <li class="@yield('student-blocked')">
                                         <a href="{{route('admin.students.list',['Blocked'])}}">{{__("Blocked Students")}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- instructor  -->
+                        <li class="side-nav-item @yield('instructorparent')">
+                            <a data-bs-toggle="collapse" href="#instructorManagment" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="mdi mdi-book-education-outline"></i>
+                                <span> Manage instructors  </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse @yield('instructorparent')" id="instructorManagment">
+                                <ul class="side-nav-second-level">
+                                    <li class="@yield('instructor-active')">
+                                        <a href="{{route('admin.instructors.list',['Active'])}}">{{__("Active instructors")}}</a>
+                                    </li>
+                                    <li class="@yield('instructor-blocked')">
+                                        <a href="{{route('admin.instructors.list',['Blocked'])}}">{{__("Blocked instructors")}}</a>
                                     </li>
                                 </ul>
                             </div>

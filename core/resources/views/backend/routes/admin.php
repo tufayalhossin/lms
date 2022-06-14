@@ -48,7 +48,21 @@ Route::middleware(['auth','IsAdmin'])->prefix('app')->name('admin.')->group(func
    */
     //students
     Route::prefix('students')->name('students.')->group(function () {
-        Route::get('get-students/{status?}', [UsersController::class, 'studentAjax'])->name('ajax.index');
-        Route::get('/{status?}',[ UsersController::class, 'students'])->name('list');
+        Route::get('get-students/{status?}', [UsersController::class, 'studentAjax'])->name('ajaxtable');
+        Route::get('/{status?}',[ UsersController::class, 'instructors'])->name('list');
+    });
+    //students
+    Route::prefix('instructor')->name('instructors.')->group(function () {
+        Route::get('get-instructor/{status?}', [UsersController::class, 'instructorAjax'])->name('ajaxtable');
+        Route::get('/{status?}',[ UsersController::class, 'instructors'])->name('list');
+    });
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/',[ Subcategory::class, 'index'])->name('list');
+        Route::get('/create',[ Subcategory::class, 'create'])->name('create');
+        Route::post('/store',[ Subcategory::class, 'store'])->name('store');
+        Route::get('/view/{id}',[ Subcategory::class, 'view'])->name('view');
+        Route::get('/edit/{id}',[ Subcategory::class, 'edit'])->name('edit');
+        Route::post('/update/{id}',[ Subcategory::class, 'update'])->name('update');
+        Route::get('/delete/{id}',[ Subcategory::class, 'destroy'])->name('delete');
     });
 });

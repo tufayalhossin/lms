@@ -30,6 +30,15 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         $request->session()->regenerate();
+        
+       
+        if(auth()->user()->isAdmin == 1 && auth()->user()->isStudent == 1){
+            return redirect(route('login-as'));
+        }else if(auth()->user()->isAdmin == 1 && auth()->user()->isInstructor == 1){
+            return redirect(route('login-as'));
+        }else if(auth()->user()->isStudent == 1 && auth()->user()->isInstructor == 1){
+            return redirect(route('login-as'));
+        }
         return redirect()->intended((auth()->user()->isAdmin == 1)?route('admin.dashboard'):RouteServiceProvider::HOME);
     }
 
