@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IsUser
+class IsInstructor
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class IsUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->isStudent != 1) {
+        if (auth()->user()->IsInstructor != 1) {
             Auth::guard('web')->logout();
             return redirect('/login');
         }

@@ -67,10 +67,37 @@ function move_file($file, $path, $name = null, $delete = null)
  * check file existince
  * @return boolean
  */
-function haveFile($file)
+function hasFile($file)
 {
     if ($file) {
         return (file_exists($file))?  true:  false;
     }
     return false;
 }
+
+
+    // alphaNumeric id genarator
+    function alphaNumeric($length,$cond = null,$prefix = null)
+    {
+            if($cond == 'upper'){
+            $chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            }elseif($cond == 'lower'){
+                $chars = "1234567890abcdefghijklmnopqrstuvwxyz";
+            }else{
+                $chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            }
+
+        $charLen = strlen($chars)-1;
+        $id  = '';
+
+
+        for ($i = 0; $i < $length; $i++) {
+                $id .= $chars[mt_rand(0,$charLen)];
+        }
+        if($prefix != null){
+            return ($prefix.$id);
+        }else{
+            return ($id);
+        }
+        
+    }

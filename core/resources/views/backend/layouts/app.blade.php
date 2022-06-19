@@ -13,7 +13,7 @@
 
 </head>
 
-<body class="loading" data-layout-color="light" data-leftbar-theme="dark" data-layout-mode="fluid" data-rightbar-onstart="true">
+<body class="loading" data-layout-color="light" data-leftbar-theme="light" data-layout-mode="fluid" data-rightbar-onstart="true">
     <!-- Begin page -->
     <div class="wrapper">
         <!-- Right Sidebar -->
