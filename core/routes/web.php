@@ -18,12 +18,15 @@ Route::get('/', function () {
    return view('welcome');
 });
 // Route::get('/login-as',[ Category::class, 'index'])->name('login-as');
-Route::get('/login-as', function () {
-   return view('auth.loginas');
-})->name('login-as');
+
+Route::middleware(['auth'])->prefix('app')->group(function () {
+   Route::get('/login-as', function () {
+      return view('auth.loginas');
+   })->name('login-as');
+});
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth','IsUser'])->name('dashboard');
+   return view('dashboard');
+})->middleware(['auth', 'IsUser'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

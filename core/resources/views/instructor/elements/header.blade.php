@@ -4,6 +4,6 @@
 
 <!-- App css -->
 <link rel="stylesheet" href="{{url('webroot/assets/css/main/app.css')}}">  
-<link rel="stylesheet" href="{{url('webroot/assets/css/main/app-dark.css')}}">
+<link rel="stylesheet" href="{{url('webroot/assets/css/custom.css')}}">
 <link rel="stylesheet" href="{{url('webroot/assets/css/shared/iconly.css')}}">
 @yield('style')

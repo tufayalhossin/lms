@@ -10,6 +10,7 @@
     <link href="{{url('webroot/app/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="{{url('webroot/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{url('webroot/assets/images/logo/favicon.png')}}" type="image/png">
+<link rel="stylesheet" href="{{url('webroot/assets/css/custom.css')}}">
     <style>
         #login-as {
             display: table;
@@ -94,7 +95,7 @@
                                     <img class="card-img-top img-fluid" src="{{url('webroot/assets/images/samples/origami.jpg')}}" alt="Card image cap" />
                                     <div class="card-body">
                                         <h4 class="card-title">Student</h4>
-                                        <p class="card-text">
+                                        <p class="card-text text-muted">
                                             Visit your student portal.
                                         </p>
                                     </div>
