@@ -20,7 +20,7 @@
                                 </a>
                             </li>
 
-                            <li class="sidebar-item  @yield('courseparent') has-sub">
+                            <li class="sidebar-item  @yield('coursesparent') has-sub">
                                 <a href="#" class='sidebar-link'>
                                     <i class="bi bi-stack"></i>
                                     <span>Courses</span>
@@ -32,13 +32,13 @@
                                 </ul>
                             </li>
 
-                            <li class="sidebar-item active has-sub">
+                            <li class="sidebar-item has-sub">
                                 <a href="#" class='sidebar-link'>
                                     <i class="bi bi-grid-1x2-fill"></i>
                                     <span>Layouts</span>
                                 </a>
-                                <ul class="submenu active">
-                                    <li class="submenu-item active">
+                                <ul class="submenu">
+                                    <li class="submenu-item">
                                         <a href="layout-default.html">Default Layout</a>
                                     </li>
                                     <li class="submenu-item ">

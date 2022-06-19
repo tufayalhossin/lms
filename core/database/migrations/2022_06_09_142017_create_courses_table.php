@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('status')->default('draft');
             $table->text('message_for_approver')->nullable();
             $table->bigInteger('created_by')->unsigned();
-            $table->bigInteger('updated_by')->unsigned();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

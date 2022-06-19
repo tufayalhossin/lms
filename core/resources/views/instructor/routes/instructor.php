@@ -28,7 +28,7 @@ Route::middleware(['auth','IsInstructor'])->prefix('instructor')->name('instruct
    */
     Route::prefix('courses')->name('course.')->group(function () {
         Route::get('/',[ Courses::class, 'index'])->name('list');
-        Route::get('/view/{id}',[ Category::class, 'view'])->name('view');
+        Route::get('get-courses/{status?}', [Courses::class, 'courseAjax'])->name('ajaxtable');
     });
     
    /*
