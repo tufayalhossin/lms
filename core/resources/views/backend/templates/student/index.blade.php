@@ -14,16 +14,16 @@
 <?php
 $infoDonor = [
     "meta" => [
-        "title" => $status." Student",
+        "title" => $status . " Student",
         "description" => "",
         "tags" => "",
     ],
     "breadcrumb" => [
-        "title" => $status ." Student",
+        "title" => $status . " Student",
         "menus" => [
             [
                 'active' => false,
-                'label' => $status.' student',
+                'label' => $status . ' student',
                 'action' => route('admin.students.list'),
             ],
             [
@@ -45,29 +45,17 @@ $infoDonor = [
             </div>
 
             <div class="card-body">
-                <table class="table table-sm dt-responsive nowrap w-100" id="basic-datatable">
-                    <thead class="thead-light">
+                <table class="table table-bordered dt-responsive nowrap data-table">
+                    <thead>
                         <tr>
-                            <th>{{__("Name")}}</th>
-                            <th>{{__("Email")}}</th>
-                            <th>{{__("Status")}}</th>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>status</th>
+                            <th width="100px">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($studentslist as $key => $value)
-                        <tr>
-                            <td>{{ucwords($value->name)}}</td>
-                            <td>{{ucwords($value->email)}}</td>
-                            <td><?php if ($value->status == "Active") { ?>
-                                    <span class="badge badge-outline-success rounded-pill">{{ucwords($value->status)}}</span>
-                                <?php } else { ?>
-                                    <span class="badge badge-outline-danger rounded-pill">{{ucwords($value->status)}}</span>
-                                <?php } ?>
-                            </td>
-                           
-                        </tr>
-                        @empty
-                        @endforelse
                     </tbody>
                 </table>
 
@@ -75,8 +63,46 @@ $infoDonor = [
         </div>
     </div>
 </div>
+
+
+
 @endsection
 
 @section('script')
 @include('backend.elements.datatable-script')
+<script type="text/javascript">
+    $(function() {
+
+        var table = $('.data-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('admin.students.ajaxtable',[$status]) }}",
+            columns: [{
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
+        });
+
+    });
+</script>
+
 @endsection

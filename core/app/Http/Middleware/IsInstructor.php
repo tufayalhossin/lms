@@ -17,7 +17,7 @@ class IsInstructor
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->IsInstructor != 1) {
+        if (auth()->user()->isInstructor != 1) {
             Auth::guard('web')->logout();
             return redirect('/login');
         }

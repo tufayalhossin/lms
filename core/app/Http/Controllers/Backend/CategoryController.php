@@ -26,7 +26,6 @@ class CategoryController extends Controller
             'name' => 'required|unique:categories|max:20',
             'photo' => 'mimes:jpg,jpeg,png,gif|required|max:500',
         ]);
-// dd($request->file('photo'));
         Category::create([
             'name'          => $request->name,
             'description'   => $request->description,

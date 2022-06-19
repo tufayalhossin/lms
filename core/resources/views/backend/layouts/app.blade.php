@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <?php  if(empty($infoDonor)) $infoDonor = config('app.infoDonor'); ?>
 
 <head>
@@ -51,7 +51,7 @@
                         <div class="col-md-6">
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> © Affiliate - Artyir().
+                            </script> © Affiliate - Artyir.
                         </div>
                     </div>
                 </div>

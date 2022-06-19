@@ -48,7 +48,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group([
                     base_path('routes/web.php'),
-                    base_path('resources/views/backend/routes/admin.php')
+                    base_path('resources/views/backend/routes/admin.php'),
+                    base_path('resources/views/instructor/routes/instructor.php')
                 ]);
         });
     }

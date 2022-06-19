@@ -243,13 +243,60 @@
                        <div class=" dropdown-header noti-title">
                            <h6 class="text-overflow m-0">Welcome !</h6>
                        </div>
-
                        <!-- item-->
                        <a href="javascript:void(0);" class="dropdown-item notify-item">
                            <i class="mdi mdi-account-circle me-1"></i>
-                           <span>My Account</span>
+                           <span>Profile</span>
                        </a>
+                       <!-- item-->
+                       <a href="javascript:void(0);" class="dropdown-item notify-item">
+                           <i class="mdi mdi-cards-heart-outline me-1"></i>
+                           <span>Favorites</span>
+                       </a>
+                       <a href="javascript:void(0);" class="dropdown-item notify-item">
+                           <i class="mdi mdi-playlist-star me-1"></i>
+                           <span>Collections</span>
+                       </a>
+                       <?php 
+                        if(auth()->user()->isStudent){
+                       ?>
+                       <hr class="mb-0">
+                         <!-- item-->
+                         <div class=" dropdown-header noti-title">
+                           <h6 class="text-overflow m-0">Student !</h6>
+                       </div>
 
+                       <a href="javascript:void(0);" class="dropdown-item notify-item">
+                           <i class="mdi mdi-monitor-multiple me-1"></i>
+                           <span> Deshboard</span>
+                       </a>
+                       <?php }
+                        if(auth()->user()->isInstructor){
+                       ?>
+                       <hr class="mb-0">
+                         <!-- item-->
+                         <div class=" dropdown-header noti-title">
+                           <h6 class="text-overflow m-0">Instructor Settings</h6>
+                       </div>
+
+                       <a href="javascript:void(0);" class="dropdown-item notify-item">
+                           <i class="mdi mdi-human-male-board me-1"></i>
+                           <span> Deshboard</span>
+                       </a>
+                       <a href="javascript:void(0);" class="dropdown-item notify-item">
+                           <i class="mdi mdi-movie-open-edit-outline me-1"></i>
+                           <span> Portfolio</span>
+                       </a>
+                       <a href="javascript:void(0);" class="dropdown-item notify-item">
+                           <i class="mdi mdi-currency-usd me-1"></i>
+                           <span> Earnings</span>
+                       </a>
+                       <a href="javascript:void(0);" class="dropdown-item notify-item">
+                           <i class="mdi mdi-account-cash-outline me-1"></i>
+                           <span> Statement</span>
+                       </a>
+                       <?php }?>
+                       <hr class="mb-0">
                        <!-- item-->
                        <a href="javascript:void(0);" class="dropdown-item notify-item">
                            <i class="mdi mdi-account-edit me-1"></i>
@@ -260,12 +307,6 @@
                        <a href="javascript:void(0);" class="dropdown-item notify-item">
                            <i class="mdi mdi-lifebuoy me-1"></i>
                            <span>Support</span>
-                       </a>
-
-                       <!-- item-->
-                       <a href="javascript:void(0);" class="dropdown-item notify-item">
-                           <i class="mdi mdi-lock-outline me-1"></i>
-                           <span>Lock Screen</span>
                        </a>
 
                        <!-- item-->
