@@ -1,7 +1,7 @@
 @extends('instructor.layouts.course')
 @section('page-title',"Course Add")
-@section('coursesparent',"active")
-@section('courses-add',"active")
+@section('coursecontent',"active")
+@section('content-add',"active")
 
 <!-- 
     - tools array 
@@ -10,21 +10,21 @@
 <?php
 $infoDonor = [
     "meta" => [
-        "title" => "Category",
+        "title" => "Create Course",
         "description" => "",
         "tags" => "",
     ],
     "breadcrumb" => [
-        "title" => "Category",
+        "title" => "Course",
         "menus" => [
             [
                 'active' => false,
-                'label' => 'category',
-                'action' => route('admin.category.list'),
+                'label' => 'course',
+                'action' => route('instructor.course.list'),
             ],
             [
                 'active' => true,
-                'label' => 'add',
+                'label' => 'content',
                 'action' => '',
             ],
         ]
@@ -33,17 +33,15 @@ $infoDonor = [
 ?>
 
 @section('content')
-<div class="row">
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h5 class="m-0 text-dark card-title">{{__("New")}} {{__("Course")}}</h5>
-                <a class="m-0 btn-primary btn btn-sm float-right" href="{{route('instructor.course.create')}}">{{ __("Course View") }}</a>
+                <h5 class="m-0 text-dark card-title">{{__("Course")}} {{__("Content")}}</h5>
             </div>
             <div class="card-body">
 
 
-                <form action="{{route('instructor.course.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('instructor.course.store',[request()->operationID])}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row mb-3">
                         <label for="inputEmail3" class="col-sm-2 col-form-label text-right">{{__('Name')}}<span class="text-danger">*</span></label>
@@ -81,5 +79,4 @@ $infoDonor = [
             </div>
         </div>
     </div>
-</div>
 @endsection

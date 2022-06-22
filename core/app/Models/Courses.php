@@ -9,8 +9,39 @@ class Courses extends Model
 {
     use HasFactory;
     protected  $fillable = [
-        '*',
+        'title',
+        'slug',
+        'thumbnail',
+        'sort_description',
+        'description',
+        'user_id',
+        'categories_id',
+        'subcategories_id',
+        'pricetiers_id',
+        'user_id',
+        'categories_id',
+        'subcategories_id',
+        'pricetiers_id',
+        'students_learn',
+        'requirements',
+        'intended_learners',
+        'language_locale',
+        'instructional_level',
+        'tags',
+        'old_pricetiers_id',
+        'promo_video',
+        'media_overviews_id',
+        'welcome_message',
+        'congratulations_message',
+        'completion_certificate',
+        'completion_certificate_price',
+        'publish_schedule',
+        'status',
+        'message_for_approver',
+        'created_by',
+        'updated_by',
     ];
+    public $timestamps = true;
     public function category(){
         return $this->hasOne('App\Models\Category','id','categories_id');
     }
@@ -31,4 +62,5 @@ class Courses extends Model
         }
         return explode(',', $value);
     }
+    
 }

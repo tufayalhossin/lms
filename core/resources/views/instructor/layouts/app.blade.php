@@ -33,7 +33,7 @@
                 <div class="page-content">
                     <section class="row">
                         <!-- end page title -->
-                        @include('message.messages')
+                        @include('message.instructor-messages')
                         <!-- Start Page Content here -->
                         @yield('content')
                         <!-- End Page content -->

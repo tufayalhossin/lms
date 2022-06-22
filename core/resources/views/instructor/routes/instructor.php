@@ -21,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth','IsInstructor'])->prefix('instructor')->name('instructor.')->group(function () {
+    Route::get('/',function(){
+        return redirect()->route('instructor.dashboard');
+    });
     Route::get('/dashboard',[ DashboardController::class, 'index'])->name('dashboard');
     
    /*
@@ -28,13 +31,17 @@ Route::middleware(['auth','IsInstructor'])->prefix('instructor')->name('instruct
    */
     Route::prefix('courses')->name('course.')->group(function () {
         // intend
-        Route::get('/intend',[ Courses::class, 'intend'])->name('intend');
-        Route::post('/intend_store',[ Courses::class, 'intend_store'])->name('intend_store');
-        //course info
-        Route::get('/',[ Courses::class, 'index'])->name('list');
-        Route::get('/create',[ Courses::class, 'create'])->name('create');
-        Route::post('/store',[ Courses::class, 'store'])->name('store');
-        Route::get('get-courses/{status?}', [Courses::class, 'courseAjax'])->name('ajaxtable');
+        Route::get('/intend/{operationID?}',[ Courses::class, 'intend'])->name('intend');
+        Route::post('/intend_store/{operationID?}',[ Courses::class, 'intend_store'])->name('intend_store');
+        Route::middleware(['Owner'])->group(function () {
+            // course create and update
+            Route::get('/create/{operationID}/{slug?}',[ Courses::class, 'create'])->name('create');
+            Route::post('/store/{operationID}',[ Courses::class, 'store'])->name('store');
+
+            //course info
+            Route::get('/',[ Courses::class, 'index'])->name('list');
+            Route::get('get-courses/{status?}', [Courses::class, 'courseAjax'])->name('ajaxtable');
+        });
     });
     
    /*

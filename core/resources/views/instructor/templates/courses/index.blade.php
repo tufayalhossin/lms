@@ -41,8 +41,6 @@ $infoDonor = [
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <span class="m-0 card-title">{{__("All")}} {{__("Courses")}}</span>
-            <a class="m-0 btn-primary btn btn-sm float-right" href="{{route('instructor.course.create')}}">{{ __("Add New") }}</a>
-
             </div>
             <div class="card-body  mt-3">
                 <table class="table  table-sm dt-responsive w-100 data-table" id="table1">

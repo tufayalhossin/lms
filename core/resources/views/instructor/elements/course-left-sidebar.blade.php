@@ -1,28 +1,24 @@
             <div id="sidebar" class="active">
                 <div class="sidebar-wrapper active">
-                    <div class="sidebar-header position-relative">
-                        <div class="d-flex align-items-center">
-                            <div class="logo">
-                            <i class="fas fa-angle-left text-primary"></i>
-                                <a href="{{route('instructor.dashboard')}}"  class="ml-3"><img src="{{url('webroot/assets/images/logo/logo.svg')}}" alt="Logo" class="ml-3"></a>
-                            </div>
+                    <div class="sidebar-header d-flex align-items-center" style="font-size: 1.5rem;">
+                            <a href="{{route('instructor.dashboard')}}"  class="ml-3"><i class="fas fa-angle-left"></i> &nbsp; Back Courses</a>
                         </div>
-                    </div>
 
 
                     <div class="sidebar-menu">
                         <ul class="menu">
-                            <li class="sidebar-item  @yield('coursesparent') has-sub">
+                            <li class="sidebar-item  @yield('intendparent') has-sub">
                                 <a href="#" class='sidebar-link'>
                                 <i class="fas fa-info-circle"></i>
                                     <span>Plan Your Course</span>
                                 </a>
-                                <ul class="submenu @yield('coursesparent')">
-                                    <li class="submenu-item @yield('courses-add')">
+                                <ul class="submenu @yield('intendparent')">
+                                    <li class="submenu-item @yield('intend-add')">
                                         <a href="{{route('instructor.course.intend')}}">Intended Learner</a>
                                     </li>
                                 </ul>
                             </li>
+                            @if(request()->operationID)
                             <li class="sidebar-item  @yield('coursecontent') has-sub">
                                 <a href="#" class='sidebar-link'>
                                 <i class="fab fa-readme"></i>
@@ -30,7 +26,7 @@
                                 </a>
                                 <ul class="submenu @yield('coursecontent')">
                                     <li class="submenu-item @yield('content-add')">
-                                        <a href="{{route('instructor.course.create')}}">Create your content</a>
+                                        <a href="{{route('instructor.course.create',[request()->operationID])}}">Create your content</a>
                                     </li>
                                     <li class="submenu-item @yield('curriculum-active')">
                                         <a href="{{route('instructor.course.list')}}">Curriculum</a>
@@ -57,7 +53,7 @@
                                     </li>
                                 </ul>
                             </li>
-
+                            @endif
                         </ul>
                     </div>
                 </div>

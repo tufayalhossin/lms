@@ -27,12 +27,7 @@
             height: 100% !important;
         }
 
-        .card-course-detail__content {
-            display: flex;
-            flex: 1 0 auto;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+       
 
         .card-course-detail__content--bottom {
             padding: 0;
@@ -45,13 +40,6 @@
             right: 0;
         }
 
-
-        .sec {
-            position: relative;
-            right: -13px;
-            top: -22px;
-        }
-
         .counter.counter-lg {
             top: -7px !important;
             position: relative;
@@ -61,9 +49,8 @@
 
         .navbar-brand {
             font-weight: bolder;
-            position: relative;
-            top: 4px;
-            font-size: 25px;
+            font-size: 48px;
+            font-family: initial;
         }
     </style>
 </head>
@@ -71,23 +58,21 @@
 <body>
     <nav class="navbar navbar-light">
         <div class="container d-block">
-            <a href="{{url('/')}}"><i class="bi bi-chevron-left"></i></a>
-            <a class="navbar-brand ms-4 text-primary" href="{{url('/')}}">
-                Artyir
-            </a>
+           
         </div>
     </nav>
     <div id="login-as">
         <div class="mycontainer">
             <section class="container">
                 <div class="row justify-content-center">
-                    <div class="col-md-9 col-sm-12">
-                        <div class="float-start">
-                            <h3 class="mb-3">Choose your favorite dashboard</h3>
-                        </div>
+                    
+                    <div class="col-12 text-center mb-3">
+                        <a class="navbar-brand text-primary "  href="{{url('/')}}">
+                            Artyir
+                        </a>
+                        <h3 class="mb-5">Choose your favorite dashboard</h3>
                     </div>
-                </div>
-                <div class="row justify-content-center">
+                    @if(auth()->user()->isStudent)
                     <div class="col-md-3 col-sm-12  col-height">
                         <a href="{{route('dashboard')}}" class="card-course-detail__content">
                             <div class="card mb-1">
@@ -111,6 +96,8 @@
                             </div>
                         </a>
                     </div>
+                    @endif
+                    @if(auth()->user()->isInstructor)
                     <div class="col-md-3 col-sm-12  col-height">
                         <a href="{{route('instructor.dashboard')}}" class="card-course-detail__content">
                             <div class="card mb-1">
@@ -137,6 +124,8 @@
                             </div>
                         </a>
                     </div>
+                    @endif
+                    @if(auth()->user()->isAdmin)
                     <div class="col-md-3 col-sm-12  col-height">
                         <a href="{{route('admin.dashboard')}}" class="card-course-detail__content">
                             <div class="card mb-1">
@@ -163,10 +152,9 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-9 col-sm-12 pt-5 footer clearfix mb-0 text-muted">
-                        <div class="float-start">
-                            <p>{{date("Y")}} © Artyir</p>
-                        </div>
+                    @endif
+                    <div class="col--12 pt-5 footer clearfix mb-0 text-muted text-center">
+                        <p>{{date("Y")}} © Artyir</p>
                     </div>
                 </div>
             </section>
