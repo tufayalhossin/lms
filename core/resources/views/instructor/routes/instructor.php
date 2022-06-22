@@ -27,7 +27,13 @@ Route::middleware(['auth','IsInstructor'])->prefix('instructor')->name('instruct
     -- category routes
    */
     Route::prefix('courses')->name('course.')->group(function () {
+        // intend
+        Route::get('/intend',[ Courses::class, 'intend'])->name('intend');
+        Route::post('/intend_store',[ Courses::class, 'intend_store'])->name('intend_store');
+        //course info
         Route::get('/',[ Courses::class, 'index'])->name('list');
+        Route::get('/create',[ Courses::class, 'create'])->name('create');
+        Route::post('/store',[ Courses::class, 'store'])->name('store');
         Route::get('get-courses/{status?}', [Courses::class, 'courseAjax'])->name('ajaxtable');
     });
     

@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('sort_description')->nullable();
             $table->longText('description')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('categories_id');
-            $table->unsignedBigInteger('subcategories_id');
+            $table->unsignedBigInteger('categories_id')->nullable();
+            $table->unsignedBigInteger('subcategories_id')->nullable();
             $table->unsignedBigInteger('pricetiers_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('categories_id')->references('id')->on('categories');

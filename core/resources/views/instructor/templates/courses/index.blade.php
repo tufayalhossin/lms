@@ -41,11 +41,11 @@ $infoDonor = [
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <span class="m-0 card-title">{{__("All")}} {{__("Courses")}}</span>
-            <a class="m-0 btn-primary btn btn-sm float-right" href="{{route('admin.category.create')}}">{{ __("Add New") }}</a>
+            <a class="m-0 btn-primary btn btn-sm float-right" href="{{route('instructor.course.create')}}">{{ __("Add New") }}</a>
 
             </div>
             <div class="card-body  mt-3">
-                <table class="table  table-sm dt-responsive nowrap w-100 data-table" id="table1">
+                <table class="table  table-sm dt-responsive w-100 data-table" id="table1">
                     <thead>
                         <tr>
                             <th>Thumbnail</th>
@@ -53,6 +53,8 @@ $infoDonor = [
                             <th>Certificate</th>
                             <th>Categories</th>
                             <th>Price</th>
+                            <th>Classes</th>
+                            <th width="50">{{__("Action")}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,7 +82,7 @@ $infoDonor = [
                                 No
                                 <?php }?>
                                 <br/>
-                                <span class="badge rounded-pill bg-light text-dark ">${{$value->completion_certificate_price}}</span>
+                                <span class="badge rounded-pill bg-light text-dark ">{{$value->completion_certificate_price}}</span>
                            
                             </td>
                             <td>{{$value->category->name}} <br>
@@ -91,10 +93,13 @@ $infoDonor = [
                                 <?php }?>
                             </td>
                             <td>0</td>
+                            <td>
+                              <p>{{sizeof($value->sections)}}</p>
+                            </td>
                            
                             <td class="text-right">
                                 <div class="dropdown">
-                                    <i class="bi bi-three-dots-vertical dropdown-toggle artyir-dropdown-toggle btn btn-light btn-sm" id="dropdownMenuLink" data-bs-toggle="dropdown"></i>
+                                    <i class="fas fa-ellipsis-v dropdown-toggle artyir-dropdown-toggle btn btn-primary" id="dropdownMenuLink" data-bs-toggle="dropdown"></i>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <li><a href="{{route('admin.subcategory.view',[$value->id])}}" class="dropdown-item  text-info"><i class="dripicons-information me-2"></i> View</a></li>
                                         <li><a href="{{route('admin.subcategory.edit',[$value->id])}}" class="dropdown-item text-warning"><i class="dripicons-document-edit me-2"></i> Edit</a></li>

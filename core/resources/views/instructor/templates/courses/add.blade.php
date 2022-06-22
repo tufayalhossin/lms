@@ -1,7 +1,7 @@
-@extends('backend.layouts.app')
-@section('page-title',"Category Add")
+@extends('instructor.layouts.course')
+@section('page-title',"Course Add")
 @section('coursesparent',"active")
-@section('courses-list',"active")
+@section('courses-add',"active")
 
 <!-- 
     - tools array 
@@ -37,13 +37,13 @@ $infoDonor = [
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h5 class="m-0 text-dark card-title">{{__("New")}} {{__("Category")}}</h5>
-                <a class="m-0 btn-primary btn btn-sm float-right" href="{{route('admin.category.list')}}">{{ __("View List") }}</a>
+                <h5 class="m-0 text-dark card-title">{{__("New")}} {{__("Course")}}</h5>
+                <a class="m-0 btn-primary btn btn-sm float-right" href="{{route('instructor.course.create')}}">{{ __("Course View") }}</a>
             </div>
             <div class="card-body">
 
 
-                <form action="{{route('admin.category.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('instructor.course.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row mb-3">
                         <label for="inputEmail3" class="col-sm-2 col-form-label text-right">{{__('Name')}}<span class="text-danger">*</span></label>

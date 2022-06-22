@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string("extra_resourse")->nullable();
             $table->mediumText("lecture_description")->nullable();
             $table->tinyInteger("status")->detault(1);
-            $table->bigInteger('created_by')->unsigned();
-            $table->bigInteger('updated_by')->unsigned();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }

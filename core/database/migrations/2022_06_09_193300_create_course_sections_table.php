@@ -20,9 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->references('id')->on('courses');
             $table->tinyInteger("status")->detault(1);
-            $table->tinyInteger("quiz_required")->detault(1);
-            $table->bigInteger('created_by')->unsigned();
-            $table->bigInteger('updated_by')->unsigned();
+            $table->tinyInteger("quiz_required")->detault(0);
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }
