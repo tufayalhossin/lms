@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id()->from(692022);            
             $table->string('title');
+            $table->string('slug')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('sort_description')->nullable();
             $table->longText('description')->nullable();

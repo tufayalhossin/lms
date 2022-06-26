@@ -11,6 +11,8 @@
      <!-- Fonts -->
      @include('instructor.elements.header')
      <link rel="stylesheet" href="{{url('webroot/assets/fontawesome/css/all.min.css')}}">
+     <link rel="stylesheet" href="{{url('webroot/vendors/quill/quill.bubble.css')}}">
+    <link rel="stylesheet" href="{{url('webroot/vendors/quill/quill.snow.css')}}">
 
 </head>
 
@@ -35,7 +37,7 @@
                 <div class="page-content">
                     <section class="row">
                         <!-- end page title -->
-                        @include('message.messages')
+                        @include('message.instructor-messages')
                         <!-- Start Page Content here -->
                         @yield('content')
                         <!-- End Page content -->
@@ -69,6 +71,11 @@
     <!-- Footer -->
     @include('instructor.elements.footer')
     <!-- End Footer -->
+    
+    <script src="{{url('webroot/vendors/jquery/jquery.min.js')}}"></script>
+    <script src="{{url('webroot/vendors/quill/quill.min.js')}}"></script>
+    <script src="{{url('webroot/assets/js/pages/form-editor.js')}}"></script>
+
 </body>
 
 </html>

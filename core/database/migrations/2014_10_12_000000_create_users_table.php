@@ -34,6 +34,7 @@ return new class extends Migration
             "email" => "admin@artyir.com",
             "email_verified_at" => date('Y-m-d H:i:s'),
             "isAdmin" => 1,
+            "isInstructor" => 1,
             "cid" => alphaNumeric(20,'upper'),
             "password" => bcrypt("12345678"),
         );

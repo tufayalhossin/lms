@@ -27,10 +27,13 @@
                                 </a>
                                 <ul class="submenu @yield('coursesparent')">
                                     <li class="submenu-item @yield('courses-add')">
-                                        <a href="{{route('instructor.course.create')}}">Start New Courses</a>
+                                        <a href="{{route('instructor.course.intend')}}">Start New Courses</a>
                                     </li>
                                     <li class="submenu-item @yield('courses-active')">
                                         <a href="{{route('instructor.course.list')}}">Active Courses</a>
+                                    </li>
+                                    <li class="submenu-item @yield('courses-draft')">
+                                        <a href="{{route('instructor.course.draft')}}">Draft Courses</a>
                                     </li>
                                 </ul>
                             </li>
