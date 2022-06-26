@@ -32,6 +32,9 @@
                                     <li class="submenu-item @yield('courses-active')">
                                         <a href="{{route('instructor.course.list')}}">Active Courses</a>
                                     </li>
+                                    <li class="submenu-item @yield('courses-draft')">
+                                        <a href="{{route('instructor.course.draft')}}">Draft Courses</a>
+                                    </li>
                                 </ul>
                             </li>
 

@@ -20,7 +20,7 @@ class Owner
         $result = DB::table('courses')->where('id',request()->operationID)->first();
         if($result == null or $result->user_id != auth()->user()->id){
             Session::flash('warning', 'Sorry, Record not found!.');
-            return redirect()->route('instructor.course.intend');
+            return redirect()->route('instructor.course.list');
         }
        
         return $next($request);

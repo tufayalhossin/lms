@@ -14,7 +14,7 @@
                                 </a>
                                 <ul class="submenu @yield('intendparent')">
                                     <li class="submenu-item @yield('intend-add')">
-                                        <a href="{{route('instructor.course.intend')}}">Intended Learner</a>
+                                        <a href="{{route('instructor.course.intend',[request()->operationID])}}">Intended Learner</a>
                                     </li>
                                 </ul>
                             </li>
@@ -26,7 +26,7 @@
                                 </a>
                                 <ul class="submenu @yield('coursecontent')">
                                     <li class="submenu-item @yield('content-add')">
-                                        <a href="{{route('instructor.course.create',[request()->operationID])}}">Create your content</a>
+                                        <a href="{{route('instructor.course.create',[request()->operationID])}}">Create landing page</a>
                                     </li>
                                     <li class="submenu-item @yield('curriculum-active')">
                                         <a href="{{route('instructor.course.list')}}">Curriculum</a>

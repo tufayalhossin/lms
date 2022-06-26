@@ -279,7 +279,7 @@
                            <h6 class="text-overflow m-0">Instructor Settings</h6>
                        </div>
 
-                       <a href="javascript:void(0);" class="dropdown-item notify-item">
+                       <a href="{{route('instructor.dashboard')}}" target="_blank" class="dropdown-item notify-item">
                            <i class="mdi mdi-human-male-board me-1"></i>
                            <span> Deshboard</span>
                        </a>

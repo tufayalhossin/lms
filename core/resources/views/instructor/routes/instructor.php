@@ -33,13 +33,15 @@ Route::middleware(['auth','IsInstructor'])->prefix('instructor')->name('instruct
         // intend
         Route::get('/intend/{operationID?}',[ Courses::class, 'intend'])->name('intend');
         Route::post('/intend_store/{operationID?}',[ Courses::class, 'intend_store'])->name('intend_store');
+        Route::get('/',[ Courses::class, 'index'])->name('list');
+        Route::get('/draft',[ Courses::class, 'draft'])->name('draft');
         Route::middleware(['Owner'])->group(function () {
+            Route::post('/intend_update/{operationID?}',[ Courses::class, 'intend_update'])->name('intend_update');
             // course create and update
             Route::get('/create/{operationID}/{slug?}',[ Courses::class, 'create'])->name('create');
             Route::post('/store/{operationID}',[ Courses::class, 'store'])->name('store');
 
             //course info
-            Route::get('/',[ Courses::class, 'index'])->name('list');
             Route::get('get-courses/{status?}', [Courses::class, 'courseAjax'])->name('ajaxtable');
         });
     });
