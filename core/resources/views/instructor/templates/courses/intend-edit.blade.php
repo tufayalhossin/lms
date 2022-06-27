@@ -41,11 +41,6 @@ $infoDonor = [
             <div class="col-md-8">
                 <form action="{{route('instructor.course.intend_update',[$course->id])}}"  method="post">
                     @csrf
-                    <div class="mb-5 pt-5">
-                        <h5>What is your course title?</h5>
-                        <p>Take a better meaningful title with in 80 character what will students reach easily.</p>
-                        <textarea class="form-control" name="title" required placeholder="Example: Python begainer to advance from scratch step by step" rows="1" maxlength="75">{{$course->title}}</textarea>
-                    </div>
                     <p class="py-3">The following descriptions will be publicly visible on your <span class="text-primary">Course Landing Page</span> and will have a direct impact on your course performance. These descriptions will help learners decide if your course is right for them.</p>
                     <div class="mb-5">
                         <h5>What will students learn in your course? <span class="text-muted">*</span></h5>
@@ -67,7 +62,7 @@ $infoDonor = [
                     </div>
                    
                         <div class="col-sm-12 text-end">
-                            <button type="submit" class="btn btn-primary  btn-sm">{{__("Add & Next")}}</button>
+                            <button type="submit" class="btn btn-primary  btn-sm">{{__("Submit & Next")}}</button>
                         </div>
                    
                 </form>

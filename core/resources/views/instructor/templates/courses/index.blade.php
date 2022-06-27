@@ -7,8 +7,8 @@
 @include('instructor.elements.datatable-style')
 <link rel="stylesheet" href="{{url('webroot/assets/fontawesome/css/all.min.css')}}">
 @endsection
-<!-- 
-    - tools array 
+<!--
+    - tools array
     - this array will create a dynamic page info and breadcrumb.
  -->
 <?php
@@ -81,7 +81,7 @@ $infoDonor = [
                                 <?php }?>
                                 <br/>
                                 <span class="badge rounded-pill bg-light text-dark ">{{$value->completion_certificate_price}}</span>
-                           
+
                             </td>
                             <td>{{$value->category->name}} <br>
                                 <?php if(!empty($value->subcategory)){?>
@@ -94,7 +94,7 @@ $infoDonor = [
                             <td>
                               <p>{{sizeof($value->sections)}}</p>
                             </td>
-                           
+
                             <td class="text-right">
                                 <div class="dropdown">
                                     <i class="fas fa-ellipsis-v dropdown-toggle artyir-dropdown-toggle btn btn-primary" id="dropdownMenuLink" data-bs-toggle="dropdown"></i>

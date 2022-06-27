@@ -28,10 +28,10 @@
                                     <li class="submenu-item @yield('content-add')">
                                         <a href="{{route('instructor.course.create',[request()->operationID])}}">Create landing page</a>
                                     </li>
-                                    <li class="submenu-item @yield('curriculum-active')">
-                                        <a href="{{route('instructor.course.list')}}">Curriculum</a>
+                                    <li class="submenu-item @yield('curriculum-add')">
+                                        <a href="{{route('instructor.course.curriculum',[request()->operationID])}}">Curriculum</a>
                                     </li>
-                                    <li class="submenu-item @yield('pricing-active')">
+                                    <li class="submenu-item @yield('pricing-add')">
                                         <a href="{{route('instructor.course.list')}}">Pricing</a>
                                     </li>
                                 </ul>

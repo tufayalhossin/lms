@@ -17,10 +17,6 @@ form.onsubmit = function () {
   return false;
 };
 
-$(document).ready(function () {
-  
-});
-
 
 $('.count-content').on("change keyup paste", function() {
   let length = $(this).val().length
@@ -32,4 +28,11 @@ $(document).ready(function () {
     let length = $(this).val().length;
     $(this).parent().find("#counter").html(length);
   });
+});
+
+ClassicEditor
+.create(document.querySelector('.ckeditor'),{
+removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed']})
+.catch(error => {
+    console.error(error);
 });

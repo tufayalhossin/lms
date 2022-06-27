@@ -32,7 +32,6 @@
 
             <div id="main-content" class="pt-0">
                 <!-- start page title -->
-                @include('instructor.elements.breadcrumb')
                 <!-- content -->
                 <div class="page-content">
                     <section class="row">
@@ -71,10 +70,6 @@
     <!-- Footer -->
     @include('instructor.elements.footer')
     <!-- End Footer -->
-    
-    <script src="{{url('webroot/vendors/jquery/jquery.min.js')}}"></script>
-    <script src="{{url('webroot/vendors/quill/quill.min.js')}}"></script>
-    <script src="{{url('webroot/assets/js/pages/form-editor.js')}}"></script>
 
 </body>
 

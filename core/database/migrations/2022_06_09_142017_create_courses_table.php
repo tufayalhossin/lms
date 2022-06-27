@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id()->from(692022);            
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('slug')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('sort_description')->nullable();
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->text('requirements')->nullable();
             $table->text('intended_learners')->nullable();
             $table->string('language_locale')->nullable();
-            $table->text('instructional_level')->nullable();
+            $table->string('instructional_level')->nullable();
             $table->text('tags')->nullable();
             $table->integer('old_pricetiers_id')->nullable();
             $table->text('promo_video')->nullable();

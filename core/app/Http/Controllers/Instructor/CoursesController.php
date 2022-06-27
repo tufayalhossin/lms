@@ -25,15 +25,24 @@ class CoursesController extends Controller
     
     public function create(){
         return view('instructor.templates.courses.add',[
-            "categorylist" => Category::where(['status'=>1])->get()
+            "coursedata" => Courses::where(['id'=>request()->operationID])->first(),
+            "categorylist" => Category::where(['status'=>1])->get(),
         ]);
     }
-    public function ajaxsubcategory(){
-        return  response()->json(Subcategory::where(['status'=>1])->get());
+
+
+    public function curriculum(){
+        return view('instructor.templates.courses.curriculum',[
+            "coursedata" => Courses::where(['id'=>request()->operationID])->first(),
+        ]);
+    }
+
+
+    public function ajaxsubcategory(Request $request){
+        return  response()->json(Subcategory::select(['id','name'])->where(['status'=>1,'category_id'=>$request->id])->get());
     }
     
     public function intend($id = null){
-        // dd(Courses::find($id));
         if($id!=null){
             return view('instructor.templates.courses.intend-edit',[
                 'course'=>Courses::find($id)
@@ -46,17 +55,15 @@ class CoursesController extends Controller
 
     public function intend_store(Request $request){
         $request->validate([
-            'title'             => 'required|max:75',
             'students_learn'    => 'required',
             'requirements'      => 'required|max:200',
             'intended_learners' => 'required|max:200',
         ]);
         $data = [
+            'title'                 => "Untitled Course",
             'students_learn'        => $request->students_learn,
-            'slug'                  => Str::slug($request->title),
             'intended_learners'     => $request->intended_learners,
             'requirements'          => $request->requirements,
-            'title'                 => $request->title,
             'user_id'               => auth()->user()->id,
             'created_by'            => auth()->user()->id,
             'status'                => "draft",
@@ -75,7 +82,6 @@ class CoursesController extends Controller
     public function intend_update(Request $request,$id=null){
      
         $request->validate([
-            'title'             => 'required|max:75|min:30',
             'students_learn'    => 'required',
             'requirements'      => 'required|max:200|min:50',
             'intended_learners' => 'required|max:200|min:50',
@@ -84,7 +90,6 @@ class CoursesController extends Controller
             'students_learn'        => $request->students_learn,
             'intended_learners'     => $request->intended_learners,
             'requirements'          => $request->requirements,
-            'title'                 => $request->title,
             'updated_by'            => auth()->user()->id,
         ];
 
@@ -98,28 +103,70 @@ class CoursesController extends Controller
     
 
 
-    public function store(Request $request){
+    public function store(Request $request,$id){
+     
+        $request->validate([
+            'title'                     => 'required|max:80',
+            'sort_description'          => 'required|max:120',
+            'description'               => 'required',
+            'categories_id'             => 'required',
+            'subcategories_id'          => 'required',
+            'language_locale'           => 'required',
+            'instructional_level'       => 'required',
+            'tags'                      => 'required',
+            'completion_certificate'    => 'required',
+        ]);
+     
+        $data = [
+            'title'                     => $request->title,
+            'sort_description'          => $request->sort_description,
+            'description'               => $request->description,
+            'categories_id'             => $request->categories_id,
+            'subcategories_id'          => $request->subcategories_id,
+            'language_locale'           => $request->language_locale,
+            'instructional_level'       => $request->instructional_level,
+            'tags'                      => $request->tags,
+            'completion_certificate'    => $request->completion_certificate,
+        ];
+        
+        if(Courses::where('id',$id)->update($data)){
+            Session::flash('success', 'Course info updated Successfull.');
+        }else{
+            Session::flash('warning', 'Data is not updated successfull, please try again.');
+        }
+        return redirect()->back();
+    }
+    
+    public function curriculum_store(Request $request,$id){
         dd($request->all());
         $request->validate([
-            'title'             => 'required|max:75'
+            'title'                     => 'required|max:80',
+            'sort_description'          => 'required|max:120',
+            'description'               => 'required',
+            'categories_id'             => 'required',
+            'subcategories_id'          => 'required',
+            'language_locale'           => 'required',
+            'instructional_level'       => 'required',
+            'tags'                      => 'required',
+            'completion_certificate'    => 'required',
         ]);
+     
         $data = [
-            'students_learn'        => $request->students_learn,
-            'slug'                  => Str::slug($request->title),
-            'intended_learners'     => $request->intended_learners,
-            'requirements'          => $request->requirements,
-            'title'                 => $request->title,
-            'user_id'               => auth()->user()->id,
-            'created_by'            => auth()->user()->id,
-            'status'                => "draft",
+            'title'                     => $request->title,
+            'sort_description'          => $request->sort_description,
+            'description'               => $request->description,
+            'categories_id'             => $request->categories_id,
+            'subcategories_id'          => $request->subcategories_id,
+            'language_locale'           => $request->language_locale,
+            'instructional_level'       => $request->instructional_level,
+            'tags'                      => $request->tags,
+            'completion_certificate'    => $request->completion_certificate,
         ];
-
-        try {
-            $result = Courses::create($data);
-            Session::flash('success', 'Course Intend added Successfull.');
-            return redirect()->route('instructor.course.create',['operationID'=>$result->id,"slug"=>$result->slug]);
-        } catch (\Throwable $th) {
-            Session::flash('warning', 'Data is not submit successfull, please try again.');
+        
+        if(Courses::where('id',$id)->update($data)){
+            Session::flash('success', 'Course info updated Successfull.');
+        }else{
+            Session::flash('warning', 'Data is not updated successfull, please try again.');
         }
         return redirect()->back();
     }

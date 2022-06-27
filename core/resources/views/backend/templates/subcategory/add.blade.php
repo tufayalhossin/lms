@@ -62,7 +62,7 @@ $infoDonor = [
                         <label for="inputEmail3" class="col-sm-2 col-form-label text-right">{{__('Category')}}<span class="text-danger">*</span></label>
                         <div class="col-sm-8">
                             <select name="category_id"  class="form-control select2" data-toggle="select2" required>
-                            <option value="" selected>Select Categoty</option>
+                            <option value="" selected>Select Category</option>
                                 @forelse($categorylist as $value)
                                     <option value="{{$value->id}}">{{ucwords($value->name)}}</option>
                                 @empty

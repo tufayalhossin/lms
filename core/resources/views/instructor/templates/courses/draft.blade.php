@@ -43,7 +43,7 @@ $infoDonor = [
             <span class="m-0 card-title">{{__("Draft")}} {{__("Courses")}}</span>
             </div>
             <div class="card-body  mt-3">
-                <table class="table  table-sm dt-responsive w-100 data-table" id="table1">
+                <table class="table  table-sm dt-responsive data-table" id="table1">
                     <thead>
                         <tr>
                             <th>Thumbnail</th>
@@ -70,7 +70,15 @@ $infoDonor = [
                             </td>
                             <td>
                                 <h5>{{$value->title}}</h5>
-                                <span class="badge rounded-pill bg-light text-dark ">{{$value->intended_learners}}</span></br>
+                                @if($value->sort_description)
+                                <p class="text-muted">{{$value->sort_description}}</p>
+                                @endif
+                               @if($value->instructional_level)
+                               <span class="badge rounded-pill bg-light text-dark ">{{ucfirst($value->instructional_level)}}</span> &nbsp;
+                               @endif
+                               @if($value->language_locale)
+                               <span class="badge rounded-pill bg-light text-dark ">{{ucfirst($value->language_locale)}}</span></br>
+                               @endif
                                 <span class="badge rounded-pill bg-success">Active</span>
                             </td>
                             <td>

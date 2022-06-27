@@ -86,9 +86,9 @@
                                     </div>
                                     <div class="card-course-detail__content--bottom">
                                         <div class="card-text">
-                                            <small class="text-muted bellicon">
+                                            <!-- <small class="text-muted bellicon">
                                                 <i class="dripicons-bell"></i><span class="counter counter-lg text-danger ">99+</span>
-                                            </small>
+                                            </small> -->
                                         </div>
                                         <div><small><i class="dripicons-arrow-thin-right artyir-color"></i></small> </div>
                                     </div>
@@ -111,12 +111,12 @@
                                     </div>
                                     <div class="card-course-detail__content--bottom">
                                         <div class="card-text">
-                                            <small class="text-muted">
+                                            <!-- <small class="text-muted">
                                                 <i class="dripicons-bell"></i><span class="counter counter-lg text-danger">99+</span>
                                             </small>
                                             <small class="text-muted pl-1">
                                                 <i class="dripicons-message"></i><span class="counter counter-lg text-danger  pl-1">9</span>
-                                            </small>
+                                            </small> -->
                                         </div>
                                         <div><small><i class="dripicons-arrow-thin-right artyir-color"></i></small> </div>
                                     </div>
@@ -139,12 +139,12 @@
                                     </div>
                                     <div class="card-course-detail__content--bottom">
                                         <div class="card-text">
-                                            <small class="text-muted bellicon">
+                                            <!-- <small class="text-muted bellicon">
                                                 <i class="dripicons-bell"></i><span class="counter counter-lg text-danger">99+</span>
                                             </small>
                                             <small class="text-muted  pl-1">
                                                 <i class="dripicons-message"></i><span class="counter counter-lg text-danger  pl-1">9</span>
-                                            </small>
+                                            </small> -->
                                         </div>
                                         <div><small><i class="dripicons-arrow-thin-right artyir-color"></i></small> </div>
                                     </div>
