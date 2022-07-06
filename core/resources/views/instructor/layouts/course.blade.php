@@ -10,7 +10,6 @@
     <meta content="artyir" name="author" />       
      <!-- Fonts -->
      @include('instructor.elements.header')
-     <link rel="stylesheet" href="{{url('webroot/assets/fontawesome/css/all.min.css')}}">
      <link rel="stylesheet" href="{{url('webroot/vendors/quill/quill.bubble.css')}}">
     <link rel="stylesheet" href="{{url('webroot/vendors/quill/quill.snow.css')}}">
 

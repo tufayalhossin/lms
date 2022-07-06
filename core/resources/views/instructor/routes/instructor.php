@@ -40,8 +40,7 @@ Route::middleware(['auth','IsInstructor'])->prefix('instructor')->name('instruct
             // course curriculum
             Route::get('/curriculum/{operationID}/{slug?}',[ Courses::class, 'curriculum'])->name('curriculum');
             Route::post('/curriculum-store/{operationID}',[ Courses::class, 'curriculum_store'])->name('curriculum_store');
-            //course info
-           // Route::get('get-courses/{status?}', [Courses::class, 'courseAjax'])->name('ajaxtable');
+            Route::post('/section-store/{operationID}',[ Courses::class, 'section_store'])->name('section_store');
         });
     });
     

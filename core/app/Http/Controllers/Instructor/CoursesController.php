@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;;
 use App\Models\Courses;
 use App\Models\Category;
+use App\Models\CourseSections;
 use App\Models\Subcategory;
 class CoursesController extends Controller
 {
@@ -165,6 +166,25 @@ class CoursesController extends Controller
         
         if(Courses::where('id',$id)->update($data)){
             Session::flash('success', 'Course info updated Successfull.');
+        }else{
+            Session::flash('warning', 'Data is not updated successfull, please try again.');
+        }
+        return redirect()->back();
+    }
+    
+    public function section_store(Request $request,$id){
+        $request->validate([
+            'title'                     => 'required|max:80|unique:course_sections',
+        ]);
+     
+        $data = [
+            'title'                 => $request->title,
+            'course_id'             => $id,
+            'created_by'            => auth()->user()->id,
+        ];
+        
+        if(CourseSections::create($data)){
+            Session::flash('success', 'Section added Successfully.');
         }else{
             Session::flash('warning', 'Data is not updated successfull, please try again.');
         }

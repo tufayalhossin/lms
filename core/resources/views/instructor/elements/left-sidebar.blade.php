@@ -16,7 +16,7 @@
                             <li class="sidebar-item @yield('dashboard') ">
                                 <a href="{{route('instructor.dashboard')}}" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
-                                    <span>Dashboard</span>
+                                    <span> Dashboard</span>
                                 </a>
                             </li>
 

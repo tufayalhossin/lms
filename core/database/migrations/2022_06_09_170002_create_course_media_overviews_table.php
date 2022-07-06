@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum("type",['link','file'])->nullable();
             $table->string("title")->nullable();
             $table->string("accept_format")->nullable();
-            $table->tinyInteger("status")->detault(1);
+            $table->tinyInteger("status")->default(1);
             $table->bigInteger('created_by')->unsigned();
             $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
