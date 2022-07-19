@@ -3,6 +3,24 @@
 @section('coursecontent',"active")
 @section('curriculum-add',"active")
 
+@section('style')
+<style>
+    .edit-curriculumn{
+        position: absolute;
+        display: none;
+        background-color: #ebebeb;
+        transition: all .3s;
+        right: 15px;
+        z-index: 999;
+    }
+    .accordion-header:hover .edit-curriculumn{
+        display: block;
+    }
+    .accordion-item{
+        cursor: pointer;
+    }
+</style>
+@endsection
 
 <!-- 
     - tools array 
@@ -43,22 +61,25 @@ $subcategors = null;
         </div>
         <div class="card-body pt-3">
             <!-- Button trigger for login form modal -->
-            <div class="text-center">
+            <div class="text-center mb-3">
                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#sectionoperation">
                     Add Section
                 </button>
             </div>
-            <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion accordion-flush panel_position" id="accordionFlushExample">
                 @forelse($coursedata->sections as $key => $section)
 
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="curriculum-heading{{$key}}">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#curriculum-{{$key}}" aria-expanded="false" aria-controls="flush-collapseOne">
+                <div class="accordion-item section-body mb-2 " id="{{$section->id}}">
+                    <h2 class="accordion-header bg-light position-relative accordion-button collapsed" id="curriculum-heading{{$key}}" data-bs-toggle="collapse" data-bs-target="#curriculum-{{$key}}" aria-expanded="false" aria-controls="flush-collapseOne">
                             {{$section->title}}
-                        </button>
+                            <div class="justify-content-center edit-curriculumn">
+                                <button type="button" class="btn btn-outline-secondary btn-rounded btn-sm ml-1 mr-1" data-bs-toggle="modal" data-bs-target="#sectionoperation">Edit Section</button>
+                                <a  class="btn btn-outline-secondary btn-rounded btn-sm ml-1 mr-1" onclick="return confirm('Are you sure you want to delete this item?');" href="{{route('admin.subcategory.delete',[$section->id])}}"> Delete Section</button>
+                            </div>
                     </h2>
                     <div id="curriculum-{{$key}}" class="accordion-collapse collapse" aria-labelledby="curriculum-heading{{$key}}" data-bs-parent="#accordionFlushExample">
-                        <div class="card bg-light text-seconday on-hover-action mb-5" id="section-6">
+                    
+                    <div class="card bg-light text-seconday on-hover-action mb-5">
                             <div class="card-body">
                                 <div class="clearfix"></div>
                                 <div class="col-md-12 table-responsive">
@@ -80,7 +101,6 @@ $subcategors = null;
                                                             <i class="feather icon-trash"></i>
                                                         </span>
                                                     </a>
-                                                    <p>{{}}</p>
                                                     <div class="d-flex pl-5 pt-2">
                                                         <div class="form-check form-switch">
                                                             <input class="form-check-input" type="checkbox" role="switch" id="published-{{$key}}" checked>
@@ -101,12 +121,6 @@ $subcategors = null;
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
                 @empty
                 @endforelse
 
@@ -153,8 +167,28 @@ $subcategors = null;
 
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
 
-
+    $(".panel_position").sortable({
+        items: '.section-body',
+        delay: 150,
+        stop: function() {
+            var selectedData = new Array();
+            $('.section-body').each(function() {
+                selectedData.push($(this).attr("id"));
+            });
+            console.log(selectedData);
+            updateOrder(selectedData);
+        }
+    });
+    function updateOrder(data) {
+                    $.ajax({
+                        url: "{{ route('instructor.course.section_sort',[request()->operationID]) }}",
+                        type:'POST',
+                        data:{_token: "{{ csrf_token() }}",position:data},
+                        success:function(data){ }
+                    })
+                }              
 </script>
 @endsection

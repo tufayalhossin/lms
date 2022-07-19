@@ -41,6 +41,8 @@ Route::middleware(['auth','IsInstructor'])->prefix('instructor')->name('instruct
             Route::get('/curriculum/{operationID}/{slug?}',[ Courses::class, 'curriculum'])->name('curriculum');
             Route::post('/curriculum-store/{operationID}',[ Courses::class, 'curriculum_store'])->name('curriculum_store');
             Route::post('/section-store/{operationID}',[ Courses::class, 'section_store'])->name('section_store');
+            Route::get('/section-delete/{operationID}',[ Courses::class, 'section_delete'])->name('section_delete');
+            Route::post('/section-sort/{operationID}',[ Courses::class, 'section_sort'])->name('section_sort');
         });
     });
     

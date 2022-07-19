@@ -139,7 +139,6 @@ class CoursesController extends Controller
     }
     
     public function curriculum_store(Request $request,$id){
-        dd($request->all());
         $request->validate([
             'title'                     => 'required|max:80',
             'sort_description'          => 'required|max:120',
@@ -189,6 +188,24 @@ class CoursesController extends Controller
             Session::flash('warning', 'Data is not updated successfull, please try again.');
         }
         return redirect()->back();
+    }
+
+    public function section_sort(Request $request,$id){
+      
+        $request->validate([
+            'position'                     => 'required',
+        ]);
+        try {
+            foreach ($request->position as $key => $value) {
+                CourseSections::where('id',$value)->update(['sortindex'=>$key]);
+            }
+            return response()->json(['success' => true,'message'=>"Sorting successfull."], 201); 
+        } catch (\Throwable $th) {
+            return response()->json(['success' => false,'message'=>"Sorting aren't successfull."], 500); 
+        }
+      
+      
+       
     }
 
 

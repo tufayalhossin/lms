@@ -49,7 +49,7 @@ class Courses extends Model
         return $this->hasOne('App\Models\Subcategory','id','subcategories_id');
     }
     public function sections(){
-        return $this->hasMany('App\Models\CourseSections','course_id','id');
+        return $this->hasMany('App\Models\CourseSections','course_id','id')->orderBy('sortindex','asc');
     }
     public function pricetiers(){
         return $this->hasOne('App\User','id','created_by');

@@ -29,10 +29,11 @@ $(document).ready(function () {
     $(this).parent().find("#counter").html(length);
   });
 });
-
+if ($('.ckeditor').length) {
 ClassicEditor
 .create(document.querySelector('.ckeditor'),{
 removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed']})
 .catch(error => {
     console.error(error);
 });
+}
