@@ -1,9 +1,6 @@
 <?php
 namespace App\resources\view\routes;
 
-// use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\CategoryController as Category;
-use App\Http\Controllers\Backend\SubcategoryController as Subcategory;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\Instructor\DashboardController;
 use App\Http\Controllers\Instructor\CoursesController as Courses;
@@ -25,7 +22,7 @@ Route::middleware(['auth','IsInstructor'])->prefix('instructor')->name('instruct
         return redirect()->route('instructor.dashboard');
     });
     Route::get('/dashboard',[ DashboardController::class, 'index'])->name('dashboard');
-    
+
    /*
     -- category routes
    */
@@ -37,26 +34,30 @@ Route::middleware(['auth','IsInstructor'])->prefix('instructor')->name('instruct
         Route::get('/draft',[ Courses::class, 'draft'])->name('draft');
         Route::middleware(['Owner'])->group(function () {
             Route::post('/intend_update/{operationID?}',[ Courses::class, 'intend_update'])->name('intend_update');
-            // course create and update
+            // course info
             Route::get('/create/{operationID}/{slug?}',[ Courses::class, 'create'])->name('create');
             Route::post('/store/{operationID}',[ Courses::class, 'store'])->name('store');
-
-            //course info
-            Route::get('get-courses/{status?}', [Courses::class, 'courseAjax'])->name('ajaxtable');
+            // course curriculum
+            Route::get('/curriculum/{operationID}/{slug?}',[ Courses::class, 'curriculum'])->name('curriculum');
+            Route::post('/curriculum-store/{operationID}',[ Courses::class, 'curriculum_store'])->name('curriculum_store');
+            // section
+            Route::post('/section-store/{operationID}',[ Courses::class, 'section_store'])->name('section_store');
+            Route::post('/section-sort/{operationID}',[ Courses::class, 'section_sort'])->name('section_sort');
+            Route::get('/section-destroy/{operationID}/{id}',[ Courses::class, 'section_destroy'])->name('section_destroy');
+            // lesson
+            Route::get('/lesson-store/{operationID}/{id?}',[ Courses::class, 'lesson'])->name('lesson');
+            Route::post('/lesson-store/{operationID}/{id?}',[ Courses::class, 'lesson_store'])->name('lesson_store');
+            Route::post('/resource_store/{operationID}/{id?}',[ Courses::class, 'resource_store'])->name('resource_store');
         });
     });
-    
+
    /*
     -- category routes
    */
-    Route::prefix('category')->name('category.')->group(function () {
-        Route::get('/',[ Category::class, 'index'])->name('list');
-        Route::get('/view/{id}',[ Category::class, 'view'])->name('view');
-    });
+
 
     Route::prefix('subcategory')->name('subcategory.')->group(function () {
-        Route::get('/',[ Subcategory::class, 'index'])->name('list');
-        Route::get('/view/{id}',[ Subcategory::class, 'view'])->name('view');
+        Route::get('get-subcategory', [Courses::class, 'ajaxsubcategory'])->name('ajax');
     });
 
     /*

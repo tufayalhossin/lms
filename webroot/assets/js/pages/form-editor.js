@@ -1,8 +1,3 @@
-if ($('#snow').length) {
-  var snow = new Quill('#snow', {
-    theme: 'snow'
-  });
-}
 
 var form = document.querySelector('form');
 form.onsubmit = function () {
@@ -17,10 +12,6 @@ form.onsubmit = function () {
   return false;
 };
 
-$(document).ready(function () {
-  
-});
-
 
 $('.count-content').on("change keyup paste", function() {
   let length = $(this).val().length
@@ -33,3 +24,5 @@ $(document).ready(function () {
     $(this).parent().find("#counter").html(length);
   });
 });
+
+$('.summernote').summernote()

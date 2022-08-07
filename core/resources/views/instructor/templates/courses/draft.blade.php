@@ -43,7 +43,7 @@ $infoDonor = [
             <span class="m-0 card-title">{{__("Draft")}} {{__("Courses")}}</span>
             </div>
             <div class="card-body  mt-3">
-                <table class="table  table-sm dt-responsive w-100 data-table" id="table1">
+                <table class="table  table-sm dt-responsive data-table" id="table1">
                     <thead>
                         <tr>
                             <th>Thumbnail</th>
@@ -70,7 +70,15 @@ $infoDonor = [
                             </td>
                             <td>
                                 <h5>{{$value->title}}</h5>
-                                <span class="badge rounded-pill bg-light text-dark ">{{$value->intended_learners}}</span></br>
+                                @if($value->sort_description)
+                                <p class="text-muted">{{$value->sort_description}}</p>
+                                @endif
+                               @if($value->instructional_level)
+                               <span class="badge rounded-pill bg-light text-dark ">{{ucfirst($value->instructional_level)}}</span> &nbsp;
+                               @endif
+                               @if($value->language_locale)
+                               <span class="badge rounded-pill bg-light text-dark ">{{ucfirst($value->language_locale)}}</span></br>
+                               @endif
                                 <span class="badge rounded-pill bg-success">Active</span>
                             </td>
                             <td>
@@ -83,7 +91,8 @@ $infoDonor = [
                                 <span class="badge rounded-pill bg-light text-dark ">{{$value->completion_certificate_price}}</span>
                            
                             </td>
-                            <td>{{property_exists($value,'category')?$value->category->name:''}} <br>
+                            <td>
+                                {{($value->category)?$value->category->name:''}} <br>
                                 <?php if(!empty($value->subcategory)){?>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
   <path fill-rule="evenodd" class="text-info" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>

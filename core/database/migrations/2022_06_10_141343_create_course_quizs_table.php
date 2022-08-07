@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string("description")->nullable();
             $table->unsignedBigInteger('section_id');
             $table->foreign('section_id')->references('id')->on('course_sections');
-            $table->tinyInteger("status")->detault(1);
+            $table->tinyInteger("status")->default(1);
             $table->bigInteger('created_by')->unsigned();
             $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();

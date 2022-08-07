@@ -1,7 +1,7 @@
             <div id="sidebar" class="active">
                 <div class="sidebar-wrapper active">
-                    <div class="sidebar-header d-flex align-items-center" style="font-size: 1.5rem;">
-                            <a href="{{route('instructor.dashboard')}}"  class="ml-3"><i class="fas fa-angle-left"></i> &nbsp; Back Courses</a>
+                    <div class="sidebar-header d-flex align-items-center" style="font-size: 1.2rem;">
+                            <a href="{{route('instructor.dashboard')}}"  class="ml-3"><i class="bi bi-arrow-bar-left icon-inline"></i> Back Courses</a>
                         </div>
 
 
@@ -28,10 +28,10 @@
                                     <li class="submenu-item @yield('content-add')">
                                         <a href="{{route('instructor.course.create',[request()->operationID])}}">Create landing page</a>
                                     </li>
-                                    <li class="submenu-item @yield('curriculum-active')">
-                                        <a href="{{route('instructor.course.list')}}">Curriculum</a>
+                                    <li class="submenu-item @yield('curriculum-add')">
+                                        <a href="{{route('instructor.course.curriculum',[request()->operationID])}}">Curriculum</a>
                                     </li>
-                                    <li class="submenu-item @yield('pricing-active')">
+                                    <li class="submenu-item @yield('pricing-add')">
                                         <a href="{{route('instructor.course.list')}}">Pricing</a>
                                     </li>
                                 </ul>

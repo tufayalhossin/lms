@@ -19,7 +19,7 @@ return new class extends Migration
             $table->tinyInteger("isCorrect")->detault(0);
             $table->unsignedBigInteger('quiz_id');
             $table->foreign('quiz_id')->references('id')->on('course_quizs');
-            $table->tinyInteger("status")->detault(1);
+            $table->tinyInteger("status")->default(1);
             $table->bigInteger('created_by')->unsigned();
             $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
