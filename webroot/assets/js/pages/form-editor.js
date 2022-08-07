@@ -1,8 +1,3 @@
-if ($('#snow').length) {
-  var snow = new Quill('#snow', {
-    theme: 'snow'
-  });
-}
 
 var form = document.querySelector('form');
 form.onsubmit = function () {
@@ -29,11 +24,5 @@ $(document).ready(function () {
     $(this).parent().find("#counter").html(length);
   });
 });
-if ($('.ckeditor').length) {
-ClassicEditor
-.create(document.querySelector('.ckeditor'),{
-removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed']})
-.catch(error => {
-    console.error(error);
-});
-}
+
+$('.summernote').summernote()

@@ -10,9 +10,6 @@
     <meta content="artyir" name="author" />       
      <!-- Fonts -->
      @include('instructor.elements.header')
-     <link rel="stylesheet" href="{{url('webroot/vendors/quill/quill.bubble.css')}}">
-    <link rel="stylesheet" href="{{url('webroot/vendors/quill/quill.snow.css')}}">
-
 </head>
 
 <body>
@@ -69,7 +66,7 @@
     <!-- Footer -->
     @include('instructor.elements.footer')
     <!-- End Footer -->
-
+    
 </body>
 
 </html>

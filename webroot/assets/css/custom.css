@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 
 body {
-    font-family: 'Lato', sans-serif;
     background-color: #ebebeb;
 }
 
@@ -26,4 +25,10 @@ body {
     border-radius: 2.5px;
     font-size: 14px;
     min-height: 46px;
+}
+.icon-inline::before{
+    line-height: 1.3 !important;
+}
+#main-content{
+    min-height: 80vh;
 }

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;;
 use App\Models\Courses;
 use App\Models\Category;
+use App\Models\CourseLessons;
+use App\Models\CourseMediaOverviews;
 use App\Models\CourseSections;
 use App\Models\Subcategory;
 class CoursesController extends Controller
@@ -17,13 +19,13 @@ class CoursesController extends Controller
             "courselist" => Courses::where(['user_id'=>auth()->user()->id,'status'=>"Published"])->orderBy('id', 'desc')->get()
         ]);
     }
-    
+
     public function draft(){
         return view('instructor.templates.courses.draft',[
             "courselist" => Courses::where(['user_id'=>auth()->user()->id,'status'=>"draft"])->orderBy('id', 'desc')->get()
         ]);
     }
-    
+
     public function create(){
         return view('instructor.templates.courses.add',[
             "coursedata" => Courses::where(['id'=>request()->operationID])->first(),
@@ -42,7 +44,7 @@ class CoursesController extends Controller
     public function ajaxsubcategory(Request $request){
         return  response()->json(Subcategory::select(['id','name'])->where(['status'=>1,'category_id'=>$request->id])->get());
     }
-    
+
     public function intend($id = null){
         if($id!=null){
             return view('instructor.templates.courses.intend-edit',[
@@ -81,7 +83,7 @@ class CoursesController extends Controller
     }
 
     public function intend_update(Request $request,$id=null){
-     
+
         $request->validate([
             'students_learn'    => 'required',
             'requirements'      => 'required|max:200|min:50',
@@ -101,11 +103,11 @@ class CoursesController extends Controller
         }
         return redirect()->back();
     }
-    
+
 
 
     public function store(Request $request,$id){
-     
+
         $request->validate([
             'title'                     => 'required|max:80',
             'sort_description'          => 'required|max:120',
@@ -117,7 +119,7 @@ class CoursesController extends Controller
             'tags'                      => 'required',
             'completion_certificate'    => 'required',
         ]);
-     
+
         $data = [
             'title'                     => $request->title,
             'sort_description'          => $request->sort_description,
@@ -129,7 +131,7 @@ class CoursesController extends Controller
             'tags'                      => $request->tags,
             'completion_certificate'    => $request->completion_certificate,
         ];
-        
+
         if(Courses::where('id',$id)->update($data)){
             Session::flash('success', 'Course info updated Successfull.');
         }else{
@@ -137,7 +139,7 @@ class CoursesController extends Controller
         }
         return redirect()->back();
     }
-    
+
     public function curriculum_store(Request $request,$id){
         $request->validate([
             'title'                     => 'required|max:80',
@@ -150,7 +152,7 @@ class CoursesController extends Controller
             'tags'                      => 'required',
             'completion_certificate'    => 'required',
         ]);
-     
+
         $data = [
             'title'                     => $request->title,
             'sort_description'          => $request->sort_description,
@@ -162,7 +164,7 @@ class CoursesController extends Controller
             'tags'                      => $request->tags,
             'completion_certificate'    => $request->completion_certificate,
         ];
-        
+
         if(Courses::where('id',$id)->update($data)){
             Session::flash('success', 'Course info updated Successfull.');
         }else{
@@ -170,28 +172,38 @@ class CoursesController extends Controller
         }
         return redirect()->back();
     }
-    
+
     public function section_store(Request $request,$id){
         $request->validate([
             'title'                     => 'required|max:80|unique:course_sections',
         ]);
-     
+        $section = CourseSections::where('course_id',$id)->orderby('sortindex','desc')->first();
         $data = [
             'title'                 => $request->title,
             'course_id'             => $id,
+            'sortindex'             => !empty($section)?$section->sortindex+1:0,
             'created_by'            => auth()->user()->id,
         ];
-        
-        if(CourseSections::create($data)){
-            Session::flash('success', 'Section added Successfully.');
+        if($request->id){
+
+            $data = [
+                'title'        => $request->title,
+                'updated_by'   => auth()->user()->id,
+            ];
+            CourseSections::where('id',$request->id)->update($data);
+            Session::flash('success', 'Section updated Successfully.');
         }else{
-            Session::flash('warning', 'Data is not updated successfull, please try again.');
+            if(CourseSections::create($data)){
+                Session::flash('success', 'Section added Successfully.');
+            }else{
+                Session::flash('warning', 'Data is not updated successfull, please try again.');
+            }
         }
         return redirect()->back();
     }
 
     public function section_sort(Request $request,$id){
-      
+
         $request->validate([
             'position'                     => 'required',
         ]);
@@ -199,15 +211,68 @@ class CoursesController extends Controller
             foreach ($request->position as $key => $value) {
                 CourseSections::where('id',$value)->update(['sortindex'=>$key]);
             }
-            return response()->json(['success' => true,'message'=>"Sorting successfull."], 201); 
+            return response()->json(['success' => true,'message'=>"Sorting successfull."], 201);
         } catch (\Throwable $th) {
-            return response()->json(['success' => false,'message'=>"Sorting aren't successfull."], 500); 
+            return response()->json(['success' => false,'message'=>"Sorting aren't successfull."], 500);
         }
-      
-      
-       
     }
 
+    public function section_destroy($course_id,$id)
+    {
+        try {
+            CourseSections::where(["id"=> $id,'course_id'=>$course_id])->delete();
+            Session::flash('success', 'Delete Successfully.');
+        } catch (\Throwable $th) {
+            Session::flash('warning', 'You can\'t delete this one');
+        }
+        return redirect()->back();
+    }
+
+
+
+    public function lesson($course_id,$id = null){
+        $lessondata = CourseLessons::where(['id'=>$id])->first();
+        return view('instructor.templates.courses.lesson-modal-body',[
+            "lessondata" => $lessondata,
+            "section_id" => !empty($lessondata)?$lessondata->section_id:null
+        ]);
+    }
+
+
+    public function lesson_store(Request $request,$section_id){
+        $request->validate([
+            'title'             => 'required|max:100',
+        ]);
+        $prev_sort_data = CourseLessons::where('section_id',$request->section_id)->orderby('sortindex','desc')->first();
+
+        if($request->lession_id){
+            $data = [
+                'title'        => $request->title,
+                'lecture_description'   => $request->lecture_description,
+                // 'status'                => $request->status,
+                'updated_by'   => auth()->user()->id,
+            ];
+            CourseLessons::where('id',$request->id)->update($data);
+            Session::flash('success', 'Section updated Successfully.');
+        }else{
+
+            $data = [
+                'title'                 => $request->title,
+                'lecture_description'   => $request->lecture_description,
+                'section_id'            => (int) $request->section_id,
+                'status'                => 1,
+                'sortindex'             => !empty($prev_sort_data)?$prev_sort_data->sortindex+1:0,
+                'created_by'            => auth()->user()->id,
+            ];
+         
+            if(CourseLessons::create($data)){
+                Session::flash('success', 'Section added Successfully.');
+            }else{
+                Session::flash('warning', 'Data is not updated successfull, please try again.');
+            }
+        }
+        return redirect()->back();
+    }
 
 
 }

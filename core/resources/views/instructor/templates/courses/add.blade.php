@@ -29,7 +29,7 @@ $infoDonor = [
         ]
     ]
 ];
-$subcategors = null;
+$subcategories = [];
 ?>
 
 @section('content')
@@ -56,7 +56,7 @@ $subcategors = null;
                 </div>
                 <div class="mb-3">
                     <h5>Course description</h5>
-                    <textarea name="description" class="form-control ckeditor" >{!! $coursedata->description !!}</textarea>
+                    <textarea name="description" class="form-control summernote">{!! $coursedata->description !!}</textarea>
                 </div>
                 <div class="mb-3">
                     <h5>Discipline Informaion <span class="text-muted">*</span></h5>
@@ -67,7 +67,7 @@ $subcategors = null;
                                 @forelse($categorylist as $value)
                                 <?php
                                 if ($coursedata->categories_id == $value->id) {
-                                    $subcategors =  $value->subcategory;
+                                    $subcategories =  $value->subcategory;
                                 }
                                 ?>
                                 <option value="{{$value->id}}" <?php if ($coursedata->categories_id == $value->id) {
@@ -81,7 +81,8 @@ $subcategors = null;
                         <div class="col-6">
                             <select name="subcategories_id" id="subcategory_id" class="form-control null-choose-select" required>
                                 <option selected disabled>-- Select Subcategory --</option>
-                                @forelse($subcategors as $value)
+                               
+                                @forelse($subcategories as $value)
                                 <option value="{{$value->id}}" <?php if ($coursedata->subcategories_id == $value->id) {
                                                                     echo 'selected';
                                                                 } ?>>{{$value->name}}</option>
@@ -151,7 +152,7 @@ $subcategors = null;
                 </div>
                 <div class="mb-3">
                     <h5>What is primarily taught in your course? <span class="text-muted">*</span></h5>
-                    <input type="text" class="form-control count-content choices choices__input choices__input--cloned multiple-remove" name="tags" value="{{implode(',',$coursedata->tags)}}" required placeholder="Insert your course taught.">
+                    <input type="text" class="form-control count-content choices choices__input choices__input--cloned multiple-remove" name="tags" value="{{$coursedata->tags?implode(',',$coursedata->tags):''}}" required placeholder="Insert your course taught.">
                 </div>
 
                 <div class="col-sm-12 text-end">

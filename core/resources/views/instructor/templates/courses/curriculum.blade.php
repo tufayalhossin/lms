@@ -4,8 +4,9 @@
 @section('curriculum-add',"active")
 
 @section('style')
+<link rel="stylesheet" href="{{url('webroot/vendors/timepicker/timepicker.css')}}">
 <style>
-    .edit-curriculumn{
+    .edit-curriculumn {
         position: absolute;
         display: none;
         background-color: #ebebeb;
@@ -13,17 +14,19 @@
         right: 15px;
         z-index: 999;
     }
-    .accordion-header:hover .edit-curriculumn{
+
+    .accordion-header:hover .edit-curriculumn {
         display: block;
     }
-    .accordion-item{
+
+    .accordion-item {
         cursor: pointer;
     }
 </style>
 @endsection
 
-<!-- 
-    - tools array 
+<!--
+    - tools array
     - this array will create a dynamic page info and breadcrumb.
  -->
 <?php
@@ -61,59 +64,78 @@ $subcategors = null;
         </div>
         <div class="card-body pt-3">
             <!-- Button trigger for login form modal -->
-            <div class="text-center mb-3">
-                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#sectionoperation">
-                    Add Section
-                </button>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <p> <i class="bi bi-info-circle icon-inline"></i> Your first lecture is outside of a paid section.</p>
+                </div>
+                <div class="col-6 text-end">
+                    <button type="button" class="btn btn-outline-primary btn-rounded btn-sm ml-1 mr-1" data-bs-toggle="modal" data-bs-target="#sectionoperation"><i class="bi bi-intersect"></i> Section</button>
+                </div>
             </div>
             <div class="accordion accordion-flush panel_position" id="accordionFlushExample">
                 @forelse($coursedata->sections as $key => $section)
 
                 <div class="accordion-item section-body mb-2 " id="{{$section->id}}">
-                    <h2 class="accordion-header bg-light position-relative accordion-button collapsed" id="curriculum-heading{{$key}}" data-bs-toggle="collapse" data-bs-target="#curriculum-{{$key}}" aria-expanded="false" aria-controls="flush-collapseOne">
-                            {{$section->title}}
-                            <div class="justify-content-center edit-curriculumn">
-                                <button type="button" class="btn btn-outline-secondary btn-rounded btn-sm ml-1 mr-1" data-bs-toggle="modal" data-bs-target="#sectionoperation">Edit Section</button>
-                                <a  class="btn btn-outline-secondary btn-rounded btn-sm ml-1 mr-1" onclick="return confirm('Are you sure you want to delete this item?');" href="{{route('admin.subcategory.delete',[$section->id])}}"> Delete Section</button>
-                            </div>
+                    <h2 class="accordion-header position-relative accordion-button collapsed " id="curriculum-heading{{$key}}" data-bs-toggle="collapse" data-bs-target="#curriculum-{{$key}}" aria-expanded="false" aria-controls="flush-collapseOne">
+                        {{$section->title}}
+                        <div class="justify-content-center edit-curriculumn">
+                            <button type="button" class="btn btn-outline-dark btn-rounded btn-sm ml-1 mr-1 lessonoperation" data-id="" data-section="{{$section->id}}" data-bs-toggle="modal" data-bs-target="#lessonoperation">Create Lesson</button>
+                            <button type="button" class="btn btn-outline-primary btn-rounded btn-sm ml-1 mr-1 curriculum-heading-edit" data-id="{{$section->id}}" data-name="{{$section->title}}" data-bs-toggle="modal" data-bs-target="#sectionoperation">Edit Section</button>
+                            <button type="button" class="btn btn-outline-primary btn-rounded btn-sm ml-1 mr-1 deletemodal" data-url="{{route('instructor.course.section_destroy',[request()->operationID,$section->id])}}" data-bs-toggle="modal" data-bs-target="#deletemodal">Delete Section</button>
+                        </div>
                     </h2>
                     <div id="curriculum-{{$key}}" class="accordion-collapse collapse" aria-labelledby="curriculum-heading{{$key}}" data-bs-parent="#accordionFlushExample">
-                    
-                    <div class="card bg-light text-seconday on-hover-action mb-5">
+
+                        <div class="card bg-light text-seconday on-hover-action mb-5">
                             <div class="card-body">
-                                <div class="clearfix"></div>
                                 <div class="col-md-12 table-responsive">
 
                                     <table id="table" class="table table-bordered table-striped">
                                         <tbody class="tablecontents ui-sortable">
-                                            <tr class="bg-white grab mb-2" data-id="59" style="opacity: 1;">
-                                                <td class="w-100">
-                                                    <i class="fa fa-arrows grab-icon"></i>
-                                                    <strong>Foodcad</strong>
+                                            <div class="accordion accordion-flush" id="accordionlession">
+                                                @forelse($section->lessons as $k => $lesson)
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="lesseon-heading{{$k}}">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#lesseon-collapse{{$k}}" aria-expanded="false" aria-controls="lesseon-collapse{{$k}}">
+                                                            {{ $lesson->title}}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="lesseon-collapse{{$k}}" class="accordion-collapse collapse">
+                                                        <div class="accordion-body border">
 
-                                                    <a href="#!" onclick="forModal('https://demo.courselms.com/dashboard/class/content/show/59', 'Foodcad')">
-                                                        <span class="nest-span-eye">
-                                                            <i class="feather icon-eye"></i>
-                                                        </span>
-                                                    </a>
-                                                    <a onclick="confirm_modal('https://demo.courselms.com/dashboard/class/content/trash/59')" href="#!">
-                                                        <span class="nest-span-trash">
-                                                            <i class="feather icon-trash"></i>
-                                                        </span>
-                                                    </a>
-                                                    <div class="d-flex pl-5 pt-2">
-                                                        <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" role="switch" id="published-{{$key}}" checked>
-                                                            <label class="form-check-label" for="published-{{$key}}">Published</label>
-                                                        </div>
-                                                        <div class="form-check form-switch mx-3">
-                                                            <input class="form-check-input" type="checkbox" role="switch" id="preview-{{$key}}" checked>
-                                                            <label class="form-check-label" for="preview-{{$key}}">Preview</label>
-                                                        </div>
 
+
+
+
+                                                            <div class="row pl-5 pt-2">
+                                                                <div class="col-sm-6 d-flex">
+                                                                    <div class="form-check form-switch align-items-start">
+                                                                        <input class="form-check-input" type="checkbox" role="switch" id="published-{{$k}}" checked>
+                                                                        <label class="form-check-label" for="published-{{$k}}">Published</label>
+                                                                    </div>
+                                                                    <div class="form-check form-switch mx-3 align-items-start">
+                                                                        <input class="form-check-input" type="checkbox" role="switch" id="preview-{{$k}}" checked>
+                                                                        <label class="form-check-label" for="preview-{{$k}}">Preview</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6  text-end">
+                                                                    <button type="button" class="btn btn-outline-primary btn-rounded btn-sm ml-1 mr-1 lesson_resource" data-id="{{$lesson->id}}" data-bs-toggle="modal" data-bs-target="#lessonmediamodal"><i class="bi bi-file-earmark-play"></i> Resourse</button>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="mt-3">
+                                                                <h5>Lecture description</h5>
+                                                                {!!$lesson->lecture_description!!}
+                                                            </div>
+
+
+
+                                                        </div>
                                                     </div>
-                                                </td>
-                                            </tr>
+                                                </div>
+                                                @empty
+                                                @endforelse
+                                            </div>
                                         </tbody>
                                     </table>
                                 </div>
@@ -128,36 +150,138 @@ $subcategors = null;
         </div>
     </div>
 </div>
+</div>
 
-<!--login form Modal -->
-<div class="modal fade text-left bg-dark" id="sectionoperation" tabindex="-1" role="dialog" data-bs-backdrop="false" aria-labelledby="myModalLabel33" aria-hidden="true">
+<!--section add Modal -->
+<div class="modal fade text-left bg-light" id="sectionoperation" tabindex="-1" role="dialog" data-bs-backdrop="false" aria-labelledby="myModalLabel33" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel33">Add Section</h4>
+                <h4 class="modal-title" id="section-crud">Add Section</h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <i class="bi bi-x"></i>
                 </button>
             </div>
             <form action="{{route('instructor.course.section_store',[request()->operationID])}}" method="post">
                 @csrf
+                <input type="hidden" id="modal-section-id" name="id">
                 <div class="modal-body">
                     <label>Name: </label>
                     <div class="form-group">
-                        <input type="text" placeholder="Section name" name="title" class="form-control">
+                        <input type="text" placeholder="Section name" name="title" id="modal-section-name" class="form-control">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light-secondary close-modal" data-bs-dismiss="modal">
-                        <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Close</span>
+                        <span>Close</span>
                     </button>
                     <button type="submit" class="btn btn-primary ml-1">
-                        <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Submit</span>
+                        <span>Submit</span>
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<!--Lesson add Modal -->
+<div class="modal fade text-left bg-light" id="lessonoperation" tabindex="-1" role="dialog" data-bs-backdrop="false" aria-labelledby="lessonoperation" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="lesson-modal-title">Create Lesson</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('instructor.course.lesson_store',[request()->operationID])}}" method="post">
+                    @csrf
+                    <input type="hidden" id="modal_lession_id" name="lession_id">
+                    <div id="lesson-modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-secondary close-modal" data-bs-dismiss="modal">
+                            <span>Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ml-1">
+                            <span>Submit</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Lesson media add Modal -->
+<div class="modal fade text-left bg-light" id="lessonmediamodal" tabindex="-1" role="dialog" data-bs-backdrop="false" aria-labelledby="lessonoperation" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="lesson-modal-title">Add Resource</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('instructor.course.resource_store',[request()->operationID])}}" method="post">
+                    @csrf
+                    <input type="hidden" id="resource_modal_lession_id" name="lession_id">
+
+
+                    <div>
+                        <div class="form-group">
+                            <label>Type: <pub class="text-danger">*</pub></label>
+                            <select name="type" id="lesson-type" class="form-control" required>
+                                <option value="" selected disabled>Select Type </option>
+                                <option value="youtube">Youtube</option>
+                                <option value="vimeo">Vimeo</option>
+                                <option value="link">Link</option>
+                                <option value="file">file</option>
+                                <option value="document">Document</option>
+                                <option value="image">Image</option>
+                                <option value="iframe">Iframe</option>
+                            </select>
+                        </div>
+                        <div id="resource_input">
+                           
+                        </div>
+
+                        <div class="form-group">
+                            <label>Duration: <pub class="text-danger">*</pub></label>
+                            <input type="text" name="duration" id="duration" placeholder="00:00:00" required class="form-control">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-secondary close-modal" data-bs-dismiss="modal">
+                            <span>Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ml-1">
+                            <span>Submit</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--delete Modal -->
+<div class="modal fade text-left bg-light" id="deletemodal" tabindex="-1" role="dialog" data-bs-backdrop="false" aria-labelledby="deletemodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body pt-5">
+                <p class="mb-3"><strong class="text-warning"><i class="bi bi-exclamation-triangle"></i> &nbsp; Delete</strong></p>
+                <p>Are you sure, you wanna delete this item?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-secondary close-modal" data-bs-dismiss="modal">
+                    <span class="d-none d-sm-block">Close</span>
+                </button>
+                <a class="btn btn-warning ml-1" id="delete-modal-url" href="">Procced</a>
+            </div>
         </div>
     </div>
 </div>
@@ -167,9 +291,9 @@ $subcategors = null;
 
 
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="{{url('webroot/vendors/jquery/jquery-ui.min.js')}}"></script>
+<script src="{{url('webroot/vendors/timepicker/timepicker.js')}}"></script>
 <script>
-
     $(".panel_position").sortable({
         items: '.section-body',
         delay: 150,
@@ -182,13 +306,121 @@ $subcategors = null;
             updateOrder(selectedData);
         }
     });
+
     function updateOrder(data) {
-                    $.ajax({
-                        url: "{{ route('instructor.course.section_sort',[request()->operationID]) }}",
-                        type:'POST',
-                        data:{_token: "{{ csrf_token() }}",position:data},
-                        success:function(data){ }
-                    })
-                }              
+        $.ajax({
+            url: "{{ route('instructor.course.section_sort',[request()->operationID]) }}",
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                position: data
+            },
+            success: function(data) {}
+        })
+    }
+
+    $('.curriculum-heading-edit').on('click', function() {
+        let id = $(this).attr('data-id');
+        let name = $(this).attr('data-name');
+        $('#section-crud').html('Edit Section');
+        $('#modal-section-id').val(id);
+        $('#modal-section-name').val(name);
+    });
+
+    $('#sectionoperation .close-modal').on('click', function() {
+        $('#section-crud').html('Add Section');
+        $('#modal-section-id').val('');
+        $('#modal-section-name').val('');
+    });
+
+    $(document).on('click', '.deletemodal', function() {
+        let url = $(this).attr('data-url');
+        $("#delete-modal-url").attr('href', url);
+        console.log(url);
+    });
+
+    $('.lessonoperation').on('click', function() {
+        let sec_id = $(this).attr('data-section');
+        let form_url = "{{route('instructor.course.lesson_store',[request()->operationID])}}";
+        let id = $(this).attr('data-id');
+        $("#lesson-modal-body").parent().attr('action', form_url + "/" + sec_id);
+        let url = "{{route('instructor.course.lesson',[request()->operationID])}}";
+        // console.log(url+"/"+id);
+        $.get(url + '/' + id,
+            function(data, textStatus, jqXHR) {
+                $("#lesson-modal-body").html(data);
+                timepicker();
+                setTimeout(() => {
+                    $('.summernote').summernote()
+                }, 300);
+                $('#lesson-section-id').val(sec_id);
+                $('#modal_lession_id').val(id);
+            }
+        );
+    });
+
+    $('.lesson_resource').on('click', function() {
+        let sec_id = $(this).attr('data-section');
+        let form_url = "{{route('instructor.course.resource_store',[request()->operationID])}}";
+        let id = $(this).attr('data-id');
+        $("#lesson-modal-body").parent().attr('action', form_url + "/" + sec_id);
+        let url = "{{route('instructor.course.lesson',[request()->operationID])}}";
+        // console.log(url+"/"+id);
+        $.get(url + '/' + id,
+            function(data, textStatus, jqXHR) {
+                $("#lesson-modal-body").html(data);
+                timepicker();
+                setTimeout(() => {
+                    $('.summernote').summernote()
+                }, 300);
+                $('#lesson-section-id').val(sec_id);
+                $('#modal_lession_id').val(id);
+            }
+        );
+    });
+
+
+    $(document).on('change', "#lesson-type", function() {
+        let lesson_type = $(this).val();
+        $("#resource_input").val('');
+        let html = '';
+        // $(".type-block").val('');
+        // $(".type-block").parent().addClass('d-none');
+        if (lesson_type == 'youtube' || lesson_type == 'vimeo' || lesson_type == 'link') {
+            html = ` <div class="form-group">
+                                <label>Link: <pub class="text-danger">*</pub></label>
+                                <input type="url" placeholder="Enter your link" required name="resourse" class="form-control type-block">
+                            </div>`;
+        } else if (lesson_type == 'file') {
+            html = ` <div class="form-group">
+                            <label>File: <pub class="text-danger">*</pub></label>
+                            <input type="file" name="resourse" class="form-control type-block" required>
+                        </div>`;
+        } else if (lesson_type == 'document') {
+            html = `<div class="form-group">
+                            <label>Document: <pub class="text-danger">*</pub></label>
+                            <input type="file" name="resourse" class="form-control type-block" required>
+                        </div>`;
+        } else if (lesson_type == 'image') {
+            html = ` <div class="form-group">
+                            <label>Image: <pub class="text-danger">*</pub></label>
+                            <input type="file" name="resourse" class="form-control type-block" required>
+                        </div>`;
+        } else if (lesson_type == 'iframe') {
+            html = `<div class="form-group">
+                            <label>Iframe: <pub class="text-danger">*</pub></label>
+                            <textarea name="resourse" class="form-control type-block" required rows="2"></textarea>
+                        </div>`;
+        }
+        
+        $("#resource_input").html(html);
+    });
+
+    function timepicker() {
+        $('#duration').timepicker({
+            timeFormat: 'HH:mm:ss',
+            interval: 10
+        });
+    }
 </script>
 @endsection

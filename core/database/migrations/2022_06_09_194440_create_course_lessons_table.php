@@ -19,7 +19,6 @@ return new class extends Migration
             $table->unsignedBigInteger('section_id');
             $table->integer("sortindex")->detault(0)->unsigned();
             $table->foreign('section_id')->references('id')->on('course_sections');
-            $table->integer("media_overview_id")->nullable();
             $table->string("resourse")->nullable();
             $table->string("extra_resourse")->nullable();
             $table->mediumText("lecture_description")->nullable();
