@@ -22,6 +22,8 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->route());
+        dd($request->routes());
         $request->validate([
             'name' => 'required|unique:categories|max:20',
             'photo' => 'mimes:jpg,jpeg,png,gif|required|max:500',

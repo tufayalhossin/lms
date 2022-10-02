@@ -62,7 +62,7 @@ $infoDonor = [
                     </div>
                    
                         <div class="col-sm-12 text-end">
-                            <button type="submit" class="btn btn-primary  btn-sm">{{__("Submit & Next")}}</button>
+                            <button type="submit" class="btn btn-primary  btn-sm">{{__("Save & Next")}}</button>
                         </div>
                    
                 </form>

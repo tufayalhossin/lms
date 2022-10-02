@@ -101,3 +101,17 @@ function hasFile($file)
         }
         
     }
+
+    function display_price($data)
+    {
+        $tirer_display_amount = $data->matrix_amount. ".".$data->point_amount;
+        if($tirer_display_amount <= 0){
+            $tirer_display_amount = "Free";
+        }
+        return $tirer_display_amount;
+    }
+
+    function solid_price($data)
+    {
+        return $data->matrix_amount. ".".$data->point_amount;
+    }

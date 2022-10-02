@@ -59,9 +59,10 @@ $subcategories = [];
                     <textarea name="description" class="form-control summernote">{!! $coursedata->description !!}</textarea>
                 </div>
                 <div class="mb-3">
-                    <h5>Discipline Informaion <span class="text-muted">*</span></h5>
+                    <h5>Discipline Information <span class="text-muted">*</span></h5>
                     <div class="row">
                         <div class="col-6">
+                            <label for="">Category</label>
                             <select name="categories_id" id="category_id" class="form-control null-choose-select" required>
                                 <option selected disabled>-- Select Category --</option>
                                 @forelse($categorylist as $value)
@@ -79,6 +80,7 @@ $subcategories = [];
                         </div>
 
                         <div class="col-6">
+                            <label for="">Subcategory</label>
                             <select name="subcategories_id" id="subcategory_id" class="form-control null-choose-select" required>
                                 <option selected disabled>-- Select Subcategory --</option>
                                
@@ -96,6 +98,7 @@ $subcategories = [];
                     <h5>Basic Informaion <span class="text-muted">*</span></h5>
                     <div class="row">
                         <div class="col-4">
+                            <label for="">Language</label>
                             <select name="language_locale" class="form-control null-choose-select" required>
                                 <option <?php if ($coursedata->language_locale == "arabic") {
                                             echo 'selected';
@@ -121,6 +124,7 @@ $subcategories = [];
                             </select>
                         </div>
                         <div class="col-4">
+                            <label for="">Level</label>
                             <select name="instructional_level" id="instructional_level" class="form-control null-choose-select" required>
                                 <option selected disabled>-- Select Level --</option>
                                 <option <?php if ($coursedata->instructional_level == "beginner") {
@@ -138,6 +142,7 @@ $subcategories = [];
                             </select>
                         </div>
                         <div class="col-4">
+                            <label for="">Completion Certificate</label>
                             <select name="completion_certificate" class="form-control null-choose-select" required>
                                 <option selected disabled>-- Select completion certificate --</option>
                                 <option <?php if ($coursedata->completion_certificate == 1) {
@@ -156,7 +161,7 @@ $subcategories = [];
                 </div>
 
                 <div class="col-sm-12 text-end">
-                    <button type="submit" class="btn btn-primary  btn-sm">{{__("Submit")}}</button>
+                    <button type="submit" class="btn btn-primary  btn-sm">{{__("Save")}}</button>
                 </div>
 
             </form>

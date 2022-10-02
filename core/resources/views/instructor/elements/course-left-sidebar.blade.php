@@ -32,7 +32,7 @@
                                         <a href="{{route('instructor.course.curriculum',[request()->operationID])}}">Curriculum</a>
                                     </li>
                                     <li class="submenu-item @yield('pricing-add')">
-                                        <a href="{{route('instructor.course.list')}}">Pricing</a>
+                                        <a href="{{route('instructor.course.pricing',[request()->operationID])}}">Pricing</a>
                                     </li>
                                 </ul>
                             </li>
@@ -42,14 +42,17 @@
                                     <span>Publish your course</span>
                                 </a>
                                 <ul class="submenu @yield('coursespublish')">
-                                    <li class="submenu-item @yield('promition-active')">
-                                        <a href="{{route('instructor.course.list')}}">Promotions</a>
+                                    <li class="submenu-item @yield('landing-media-add')">
+                                        <a href="{{route('instructor.course.landing_media',[request()->operationID])}}">Landing media</a>
                                     </li>
-                                    <li class="submenu-item @yield('messages-active')">
-                                        <a href="{{route('instructor.course.list')}}">Course messages</a>
+                                    <li class="submenu-item @yield('promotion')">
+                                        <a href="{{route('instructor.course.promotion',[request()->operationID])}}">Promotions</a>
                                     </li>
-                                    <li class="submenu-item @yield('faq-active')">
-                                        <a href="{{route('instructor.course.list')}}">FAQ</a>
+                                    <li class="submenu-item @yield('messages')">
+                                        <a href="{{route('instructor.course.messages',[request()->operationID])}}">Course messages</a>
+                                    </li>
+                                    <li class="submenu-item @yield('faq')">
+                                        <a href="{{route('instructor.course.faq',[request()->operationID])}}">FAQ</a>
                                     </li>
                                 </ul>
                             </li>

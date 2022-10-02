@@ -38,16 +38,48 @@ Route::middleware(['auth','IsInstructor'])->prefix('instructor')->name('instruct
             Route::get('/create/{operationID}/{slug?}',[ Courses::class, 'create'])->name('create');
             Route::post('/store/{operationID}',[ Courses::class, 'store'])->name('store');
             // course curriculum
-            Route::get('/curriculum/{operationID}/{slug?}',[ Courses::class, 'curriculum'])->name('curriculum');
-            Route::post('/curriculum-store/{operationID}',[ Courses::class, 'curriculum_store'])->name('curriculum_store');
+            Route::prefix('curriculum')->group(function () {
+                Route::get('/index/{operationID}/{slug?}',[ Courses::class, 'curriculum'])->name('curriculum');
+                Route::post('/curriculum-store/{operationID}',[ Courses::class, 'curriculum_store'])->name('curriculum_store');
+            });
             // section
-            Route::post('/section-store/{operationID}',[ Courses::class, 'section_store'])->name('section_store');
-            Route::post('/section-sort/{operationID}',[ Courses::class, 'section_sort'])->name('section_sort');
-            Route::get('/section-destroy/{operationID}/{id}',[ Courses::class, 'section_destroy'])->name('section_destroy');
+            Route::prefix('section')->group(function () {
+                Route::post('/store/{operationID}',[ Courses::class, 'section_store'])->name('section_store');
+                Route::post('/sort/{operationID}',[ Courses::class, 'section_sort'])->name('section_sort');
+                Route::get('/destroy/{operationID}/{id}',[ Courses::class, 'section_destroy'])->name('section_destroy');
+            });
             // lesson
-            Route::get('/lesson-store/{operationID}/{id?}',[ Courses::class, 'lesson'])->name('lesson');
-            Route::post('/lesson-store/{operationID}/{id?}',[ Courses::class, 'lesson_store'])->name('lesson_store');
-            Route::post('/resource_store/{operationID}/{id?}',[ Courses::class, 'resource_store'])->name('resource_store');
+            Route::prefix('lesson')->group(function () {
+                Route::post('/sort/{operationID}',[ Courses::class, 'lesson_sort'])->name('lesson_sort');
+                Route::get('/store/{operationID}/{id?}',[ Courses::class, 'lesson'])->name('lesson');
+                Route::post('/store/{operationID}/{id?}',[ Courses::class, 'lesson_store'])->name('lesson_store');
+            });
+            Route::prefix('resource')->group(function () {
+                Route::post('/store/{operationID}/{lession_id?}',[ Courses::class, 'resource_store'])->name('resource_store');
+                Route::get('/delete/{operationID}/{lesson_id}/{id}',[ Courses::class, 'resource_delete'])->name('resource_delete');
+            });
+            Route::prefix('priceing')->group(function () {
+                Route::post('/update/{operationID}',[ Courses::class, 'price_store'])->name('pricing_store');
+                Route::post('/price-ajax/{operationID}',[ Courses::class, 'price_ajax'])->name('price_ajax');
+                Route::get('/{operationID}',[ Courses::class, 'pricing'])->name('pricing');
+            });
+            Route::prefix('landing-media')->group(function () {
+                Route::post('/update/{operationID}',[ Courses::class, 'landing_media_store'])->name('landing_media_store');
+                Route::get('/{operationID}',[ Courses::class, 'landing_media'])->name('landing_media');
+            });
+            Route::prefix('promotion')->group(function () {
+                Route::post('/update/{operationID}',[ Courses::class, 'promotion_store'])->name('promotion_store');
+                Route::get('/create/{operationID}/{id?}',[ Courses::class, 'promotion_create'])->name('promotion_create');
+                Route::get('/{operationID}',[ Courses::class, 'promotion'])->name('promotion');
+            });
+            Route::prefix('messages')->group(function () {
+                Route::post('/update/{operationID}',[ Courses::class, 'messages_store'])->name('messages_store');
+                Route::get('/{operationID}',[ Courses::class, 'messages'])->name('messages');
+            });
+            Route::prefix('faq')->group(function () {
+                Route::post('/update/{operationID}',[ Courses::class, 'faq_store'])->name('faq_store');
+                Route::get('/{operationID}',[ Courses::class, 'faq'])->name('faq');
+            });
         });
     });
 

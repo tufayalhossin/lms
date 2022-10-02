@@ -9,7 +9,7 @@
     .edit-curriculumn {
         position: absolute;
         display: none;
-        background-color: #ebebeb;
+        /* background-color: #ebebeb; */
         transition: all .3s;
         right: 15px;
         z-index: 999;
@@ -21,6 +21,10 @@
 
     .accordion-item {
         cursor: pointer;
+    }
+    .iframe-body iframe{
+        width: 100% !important;
+        height: 100px;
     }
 </style>
 @endsection
@@ -79,7 +83,7 @@ $subcategors = null;
                     <h2 class="accordion-header position-relative accordion-button collapsed " id="curriculum-heading{{$key}}" data-bs-toggle="collapse" data-bs-target="#curriculum-{{$key}}" aria-expanded="false" aria-controls="flush-collapseOne">
                         {{$section->title}}
                         <div class="justify-content-center edit-curriculumn">
-                            <button type="button" class="btn btn-outline-dark btn-rounded btn-sm ml-1 mr-1 lessonoperation" data-id="" data-section="{{$section->id}}" data-bs-toggle="modal" data-bs-target="#lessonoperation">Create Lesson</button>
+                            <button type="button" class="btn btn-outline-primary btn-rounded btn-sm ml-1 mr-1 lessonoperation" data-id="" data-section="{{$section->id}}" data-bs-toggle="modal" data-bs-target="#lessonoperation">Create Lesson</button>
                             <button type="button" class="btn btn-outline-primary btn-rounded btn-sm ml-1 mr-1 curriculum-heading-edit" data-id="{{$section->id}}" data-name="{{$section->title}}" data-bs-toggle="modal" data-bs-target="#sectionoperation">Edit Section</button>
                             <button type="button" class="btn btn-outline-primary btn-rounded btn-sm ml-1 mr-1 deletemodal" data-url="{{route('instructor.course.section_destroy',[request()->operationID,$section->id])}}" data-bs-toggle="modal" data-bs-target="#deletemodal">Delete Section</button>
                         </div>
@@ -88,56 +92,81 @@ $subcategors = null;
 
                         <div class="card bg-light text-seconday on-hover-action mb-5">
                             <div class="card-body">
-                                <div class="col-md-12 table-responsive">
+                                <div class="col-md-12 ">
+                                    <div class="accordion accordion-flush lesson-position"  id="accordionlession">
+                                        @forelse($section->lessons as $k => $lesson)
+                                        <div class="accordion-item lesson-id"  id="{{$lesson->id}}">
+                                            <h2 class="accordion-header position-relative" id="lesseon-heading{{$k}}">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#lesseon-collapse{{$k}}" aria-expanded="false" aria-controls="lesseon-collapse{{$k}}">
+                                                    {{ $lesson->title}}
+                                                </button>
+                                            </h2>
+                                            <div id="lesseon-collapse{{$k}}" class="accordion-collapse collapse">
+                                                <div class="accordion-body border">
 
-                                    <table id="table" class="table table-bordered table-striped">
-                                        <tbody class="tablecontents ui-sortable">
-                                            <div class="accordion accordion-flush" id="accordionlession">
-                                                @forelse($section->lessons as $k => $lesson)
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="lesseon-heading{{$k}}">
-                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#lesseon-collapse{{$k}}" aria-expanded="false" aria-controls="lesseon-collapse{{$k}}">
-                                                            {{ $lesson->title}}
-                                                        </button>
-                                                    </h2>
-                                                    <div id="lesseon-collapse{{$k}}" class="accordion-collapse collapse">
-                                                        <div class="accordion-body border">
+                                                    <div class="row pl-5 pt-2">
+                                                        <div class="col-sm-6">
+                                                        <p><small><span class="text-info">Note:</span> Only first video will visiable for student.</small></p>
+                                                        </div>
+                                                        <div class="col-sm-6  text-end">
+                                                            <button type="button" class="btn btn-outline-primary btn-rounded btn-sm ml-1 mr-1 lesson_resource" data-id="{{$lesson->id}}" data-bs-toggle="modal" data-bs-target="#lessonmediamodal"><i class="bi bi-file-earmark-play"></i> Resourse</button>
+                                                        </div>
 
+                                                    </div>
 
+                                                    <div class="mt-3">
+                                                       <div class="d-flex">
+                                                        @forelse($lesson->media as $i => $media)
+                                                        @if($media->type == "youtube")
+                                                        <div style="width:150px" class="shadow p-2 rounded mx-1">
+                                                        <iframe width="100%" height="100" src="https://www.youtube.com/embed/{{$media->resourse}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                        <button class="btn btn-sm w-100 btn-warning  deletemodal" data-url="{{route('instructor.course.resource_delete',[request()->operationID,$media->lesson_id,$media->id])}}" data-bs-toggle="modal" data-bs-target="#deletemodal">Delete</button>
+                                                        </div>
+                                                        @endif
+                                                        @if($media->type == "vimeo")
+                                                        <div style="width:150px" class="shadow p-2 rounded mx-1">
+                                                        <iframe width="100%" height="100" src="https://player.vimeo.com/video/{{$media->resourse}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                        <button class="btn btn-sm w-100 btn-warning  deletemodal" data-url="{{route('instructor.course.resource_delete',[request()->operationID,$media->lesson_id,$media->id])}}" data-bs-toggle="modal" data-bs-target="#deletemodal">Delete</button>
+                                                        </div>
+                                                        @endif
+                                                        @if($media->type == "link")
+                                                        <div style="width:150px" class="shadow p-2 rounded mx-1">
+                                                        <video src="{{$media->resourse}}"  width="100%" height="100" controls>
+                                                        <source src="mov_bbb.mp4">
+                                                        </video>
+                                                        <button class="btn btn-sm w-100 btn-warning  deletemodal" data-url="{{route('instructor.course.resource_delete',[request()->operationID,$media->lesson_id,$media->id])}}" data-bs-toggle="modal" data-bs-target="#deletemodal">Delete</button>
+                                                        </div>
+                                                        @endif
+                                                        @if($media->type == "iframe")
+                                                        <div style="width:150px" class="shadow p-2 iframe-body rounded mx-1">
+                                                        {!!$media->resourse!!}
+                                                        <button class="btn btn-sm w-100 btn-warning  deletemodal" data-url="{{route('instructor.course.resource_delete',[request()->operationID,$media->lesson_id,$media->id])}}" data-bs-toggle="modal" data-bs-target="#deletemodal">Delete</button>
+                                                        </div>
+                                                        @endif
+                                                        @if($media->type == "document" &&   file_exists($media->resourse))
 
-
-
-                                                            <div class="row pl-5 pt-2">
-                                                                <div class="col-sm-6 d-flex">
-                                                                    <div class="form-check form-switch align-items-start">
-                                                                        <input class="form-check-input" type="checkbox" role="switch" id="published-{{$k}}" checked>
-                                                                        <label class="form-check-label" for="published-{{$k}}">Published</label>
-                                                                    </div>
-                                                                    <div class="form-check form-switch mx-3 align-items-start">
-                                                                        <input class="form-check-input" type="checkbox" role="switch" id="preview-{{$k}}" checked>
-                                                                        <label class="form-check-label" for="preview-{{$k}}">Preview</label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-6  text-end">
-                                                                    <button type="button" class="btn btn-outline-primary btn-rounded btn-sm ml-1 mr-1 lesson_resource" data-id="{{$lesson->id}}" data-bs-toggle="modal" data-bs-target="#lessonmediamodal"><i class="bi bi-file-earmark-play"></i> Resourse</button>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="mt-3">
-                                                                <h5>Lecture description</h5>
-                                                                {!!$lesson->lecture_description!!}
-                                                            </div>
-
-
-
+                                                        <div style="width:150px" class="shadow p-2 rounded mx-1 text-center">
+                                                            <a href="{{url($media->resourse)}}"> <i class="bi bi-file-earmark" style="font-size:58px"></i></a>
+                                                        <button class="btn btn-sm w-100 btn-warning  deletemodal" data-url="{{route('instructor.course.resource_delete',[request()->operationID,$media->lesson_id,$media->id])}}" data-bs-toggle="modal" data-bs-target="#deletemodal">Delete</button>
+                                                        </div>
+                                                        @endif
+                                                        @empty
+                                                        @endforelse
                                                         </div>
                                                     </div>
+                                                    <div class="mt-3">
+                                                        <h5>Lecture description</h5>
+                                                        {!!$lesson->lecture_description!!}
+                                                    </div>
+
+
+
                                                 </div>
-                                                @empty
-                                                @endforelse
                                             </div>
-                                        </tbody>
-                                    </table>
+                                        </div>
+                                        @empty
+                                        @endforelse
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -176,7 +205,7 @@ $subcategors = null;
                         <span>Close</span>
                     </button>
                     <button type="submit" class="btn btn-primary ml-1">
-                        <span>Submit</span>
+                        <span>Save</span>
                     </button>
                 </div>
             </form>
@@ -203,7 +232,7 @@ $subcategors = null;
                             <span>Close</span>
                         </button>
                         <button type="submit" class="btn btn-primary ml-1">
-                            <span>Submit</span>
+                            <span>Save</span>
                         </button>
                     </div>
                 </form>
@@ -223,7 +252,7 @@ $subcategors = null;
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('instructor.course.resource_store',[request()->operationID])}}" method="post">
+                <form action="" id="resource_modal" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" id="resource_modal_lession_id" name="lession_id">
 
@@ -236,9 +265,7 @@ $subcategors = null;
                                 <option value="youtube">Youtube</option>
                                 <option value="vimeo">Vimeo</option>
                                 <option value="link">Link</option>
-                                <option value="file">file</option>
                                 <option value="document">Document</option>
-                                <option value="image">Image</option>
                                 <option value="iframe">Iframe</option>
                             </select>
                         </div>
@@ -257,7 +284,7 @@ $subcategors = null;
                             <span>Close</span>
                         </button>
                         <button type="submit" class="btn btn-primary ml-1">
-                            <span>Submit</span>
+                            <span>Save</span>
                         </button>
                     </div>
                 </form>
@@ -298,7 +325,7 @@ $subcategors = null;
         items: '.section-body',
         delay: 150,
         stop: function() {
-            var selectedData = new Array();
+            let selectedData = new Array();
             $('.section-body').each(function() {
                 selectedData.push($(this).attr("id"));
             });
@@ -317,6 +344,31 @@ $subcategors = null;
             },
             success: function(data) {}
         })
+    }
+    $(".lesson-position").sortable({
+        items: '.lesson-id',
+        delay: 150,
+        stop: function() {
+            let selectedData = new Array();
+            console.log(1234);
+            $('.lesson-id').each(function() {
+                selectedData.push($(this).attr("id"));
+            });
+            console.log(selectedData);
+            // updateLessionOrder(selectedData);
+        }
+    });
+
+    function updateLessionOrder(data) {
+        // $.ajax({
+        //     url: "{{ route('instructor.course.lesson_sort',[request()->operationID]) }}",
+        //     type: 'POST',
+        //     data: {
+        //         _token: "{{ csrf_token() }}",
+        //         position: data
+        //     },
+        //     success: function(data) {}
+        // })
     }
 
     $('.curriculum-heading-edit').on('click', function() {
@@ -360,23 +412,10 @@ $subcategors = null;
     });
 
     $('.lesson_resource').on('click', function() {
-        let sec_id = $(this).attr('data-section');
         let form_url = "{{route('instructor.course.resource_store',[request()->operationID])}}";
         let id = $(this).attr('data-id');
-        $("#lesson-modal-body").parent().attr('action', form_url + "/" + sec_id);
-        let url = "{{route('instructor.course.lesson',[request()->operationID])}}";
-        // console.log(url+"/"+id);
-        $.get(url + '/' + id,
-            function(data, textStatus, jqXHR) {
-                $("#lesson-modal-body").html(data);
-                timepicker();
-                setTimeout(() => {
-                    $('.summernote').summernote()
-                }, 300);
-                $('#lesson-section-id').val(sec_id);
-                $('#modal_lession_id').val(id);
-            }
-        );
+        $("#resource_modal").attr('action', form_url + "/" + id);
+        timepicker();
     });
 
 
@@ -386,30 +425,25 @@ $subcategors = null;
         let html = '';
         // $(".type-block").val('');
         // $(".type-block").parent().addClass('d-none');
-        if (lesson_type == 'youtube' || lesson_type == 'vimeo' || lesson_type == 'link') {
+        if (lesson_type == 'youtube' || lesson_type == 'vimeo') {
             html = ` <div class="form-group">
-                                <label>Link: <pub class="text-danger">*</pub></label>
-                                <input type="url" placeholder="Enter your link" required name="resourse" class="form-control type-block">
+                                <label>Video code: <pub class="text-danger">*</pub></label>
+                                <input type="text" placeholder="Enter video code" required name="resourse" class="form-control type-block">
                             </div>`;
-        } else if (lesson_type == 'file') {
-            html = ` <div class="form-group">
-                            <label>File: <pub class="text-danger">*</pub></label>
-                            <input type="file" name="resourse" class="form-control type-block" required>
-                        </div>`;
         } else if (lesson_type == 'document') {
             html = `<div class="form-group">
                             <label>Document: <pub class="text-danger">*</pub></label>
-                            <input type="file" name="resourse" class="form-control type-block" required>
-                        </div>`;
-        } else if (lesson_type == 'image') {
-            html = ` <div class="form-group">
-                            <label>Image: <pub class="text-danger">*</pub></label>
-                            <input type="file" name="resourse" class="form-control type-block" required>
+                            <input type="file" name="resourse" class="form-control type-block" accept=".ppt, .pptx,.txt,.pdf" required>
                         </div>`;
         } else if (lesson_type == 'iframe') {
             html = `<div class="form-group">
                             <label>Iframe: <pub class="text-danger">*</pub></label>
                             <textarea name="resourse" class="form-control type-block" required rows="2"></textarea>
+                        </div>`;
+        } else if (lesson_type == 'link') {
+            html = `<div class="form-group">
+                            <label>Link: <pub class="text-danger">*</pub></label>
+                            <input type="url" placeholder="Enter your link" required name="resourse" class="form-control type-block">
                         </div>`;
         }
         

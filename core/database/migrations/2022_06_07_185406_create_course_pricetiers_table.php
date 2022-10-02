@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('course_pricetiers', function (Blueprint $table) {
             $table->id();
-            $table->integer('country_id');
+            $table->string('currency_code');
             $table->integer('matrix_amount')->unsigned();
             $table->integer('point_amount')->unsigned();
-            $table->double('tier_amount')->unsigned();
-            $table->bigInteger('created_by')->unsigned();
-            $table->bigInteger('updated_by')->unsigned();
+            $table->integer('tier_amount')->unsigned();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }

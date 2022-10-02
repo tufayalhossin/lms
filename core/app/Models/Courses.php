@@ -52,7 +52,7 @@ class Courses extends Model
         return $this->hasMany('App\Models\CourseSections','course_id','id')->orderBy('sortindex','asc');
     }
     public function pricetiers(){
-        return $this->hasOne('App\User','id','created_by');
+        return $this->hasOne('App\Models\CoursePricetiers','id','pricetiers_id');
     }
     public function getTagsAttribute($value)
     {
